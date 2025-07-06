@@ -1,0 +1,1504 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مکاتب و رویکردهای روانشناسی</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        .slide {
+            display: none;
+            height: 100vh;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+            padding: 2rem;
+     }
+
+        .active-slide {
+            display: block;
+        }
+
+        .slide-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 1rem;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .section {
+            padding: 1.5rem;
+            border-bottom: 1px solid #e9ecef;
+            background-color: #f8f9fa;
+        }
+        
+        .section:last-child {
+            border-bottom: none;
+        }
+
+        .section-title {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .nav-button {
+            transition: all 0.3s ease;
+        }
+        
+        .nav-button:hover {
+            transform: scale(1.05);
+        }
+        
+        .school-nav {
+            background-color: #e9f2fb !important;
+        }
+        
+        .school-nav:hover {
+            background-color: #3498db !important;
+            color: white !important;
+        }
+
+        .school-nav.active {
+            background-color: #3498db !important;
+            color: white !important;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background-color: #e9ecef;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background-color: #3498db;
+            transition: width 0.3s ease;
+        }
+        
+        .section-nav {
+            transition: all 0.2s ease;
+        }
+        
+        .section-nav:hover {
+             background-color: #e9f2fb;
+        }
+        
+        .section-nav.active {
+            background-color: #3498db;
+            color: white;
+        }
+
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-50">
+
+    <div id="cover-slide" class="slide active-slide">
+        <div class="h-full flex items-center justify-center text-center">
+            <div class="transform transition-all hover:scale-105 duration-300">
+                <h1 class="text-5xl font-bold mb-6 text-indigo-600 shadow-xl p-4 rounded-full">مکاتب و رویکردهای روانشناسی</h1>
+                <p class="text-xl text-gray-600 mb-8">سیر تحول نظریه‌های روانشناختی از آغاز تا امروز</p>
+                <button onclick="startPresentation()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-full transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50">
+                    شروع ارائه
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="main-presentation-slide" class="slide">
+        <header class="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-sm shadow-md p-4 z-10">
+            <div class="flex justify-between items-center max-w-screen-xl mx-auto">
+                <h2 id="header-title" class="text-2xl font-bold text-indigo-700">مروری بر مکاتب روانشناسی</h2>
+                <div class="flex items-center space-x-4 space-x-reverse">
+                    <button id="prevBtn" onclick="navigate(-1)" class="nav-button bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-lg">قبلی</button>
+                    <button id="nextBtn" onclick="navigate(1)" class="nav-button bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg">بعدی</button>
+                </div>
+            </div>
+            <div id="progress-bar" class="progress-bar mt-4 rounded-full">
+                <div id="progress" class="progress" style="width: 0%;"></div>
+            </div>
+        </header>
+
+        <main class="pt-28">
+            <div class="flex flex-col md:flex-row gap-8 max-w-screen-xl mx-auto">
+                <aside class="w-full md:w-1/4">
+                    <div id="sidebar-navigation" class="sticky top-28 bg-white p-4 rounded-lg shadow-md overflow-y-auto" style="max-height: calc(100vh - 8rem);">
+                        <h3 class="text-lg font-bold mb-4 text-indigo-800 border-b pb-2">فهرست مطالب</h3>
+                        <div id="school-navigation" class="space-y-2">
+                             <!-- Buttons will be loaded here by JS -->
+                        </div>
+                    </div>
+                </aside>
+
+                <div class="w-full md:w-3/4">
+                    <div id="content-area" class="bg-white rounded-lg shadow-lg p-6 overflow-y-auto" style="max-height: calc(100vh - 8rem);">
+                        <div id="school-title-container" class="mb-6">
+                            <!-- School title will be loaded here -->
+                        </div>
+                        <div id="section-navigation" class="flex flex-wrap gap-2 mb-6">
+                            <!-- Section buttons will be loaded here -->
+                        </div>
+                        <div id="school-content">
+                            <!-- Content will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+<script>
+    // Data for all schools of psychology
+    const schools = [
+        {
+            title: "مقدمه: چرا تاریخ روانشناسی؟",
+            sections: [
+                {
+                    title: "اهمیت مطالعه تاریخ روانشناسی",
+                    content: `
+                        <h3 class="text-2xl font-bold mb-4 text-indigo-700">چرا تاریخ روانشناسی را می‌خوانیم؟</h3>
+                        <p class="mb-4">
+                            مطالعه تاریخچه و مکاتب فکری روانشناسی، صرفاً یک مرور تاریخی نیست؛ بلکه یک ضرورت برای درک عمیق این رشته پویاست. روانشناسی مدرن، حاصل انباشت، تقابل و تکامل ایده‌هایی است که در طول بیش از یک قرن گذشته مطرح شده‌اند. درک این سیر تحول به ما کمک می‌کند تا:
+                        </p>
+                        <ul class="list-disc pr-6 mt-2 space-y-3">
+                            <li><strong>ریشه‌های ایده‌های امروزی را بشناسیم:</strong> بسیاری از مفاهیم و درمان‌های مدرن، ریشه در نظریه‌های کلاسیک دارند. شناخت این ریشه‌ها به ما دیدگاه عمیق‌تری می‌بخشد.</li>
+                            <li><strong>از تکرار اشتباهات گذشته پرهیز کنیم:</strong> تاریخ به ما نشان می‌دهد که کدام رویکردها محدودیت داشته و کدام مسیرها به بن‌بست رسیده‌اند.</li>
+                            <li><strong>به یک دیدگاه یکپارچه برسیم:</strong> هیچ مکتبی به تنهایی نمی‌تواند تمام پیچیدگی‌های رفتار انسان را توضیح دهد. مطالعه مکاتب مختلف، ما را به سمت یک دیدگاه التقاطی و جامع‌تر سوق می‌دهد.</li>
+                            <li><strong>تفکر انتقادی را پرورش دهیم:</strong> با بررسی نقاط قوت و ضعف هر مکتب، توانایی ارزیابی انتقادی نظریه‌ها و شواهد در ما تقویت می‌شود.</li>
+                        </ul>
+                        <p class="mt-6">
+                            در این ارائه، ما سفری را از اولین تلاش‌ها برای علمی کردن مطالعه ذهن در مکتب ساختارگرایی آغاز می‌کنیم، به اعماق ناهشیار در روانکاوی فروید سفر می‌کنیم، با قوانین یادگیری در رفتارگرایی آشنا می‌شویم و در نهایت به رویکردهای مدرن‌تر شناختی، انسان‌گرا و زیستی می‌رسیم. این سفر به ما نشان می‌دهد که روانشناسی چگونه از یک رشته فلسفی به یک علم چندوجهی و کاربردی تبدیل شده است.
+                        </p>
+                    `
+                }
+            ]
+        },
+        {
+            title: "ساختارگرایی و کارکردگرایی",
+            sections: [
+                {
+                    title: "مقدمه و اصول اساسی",
+                    content: `
+                        <h3 class="text-xl font-bold mb-3 text-indigo-700">ساختارگرایی (Structuralism)</h3>
+                        <p class="mb-4">
+                            ساختارگرایی اولین مکتب روانشناسی است که بر مطالعه ساختار ذهن و تجزیه تجربیات ذهنی به عناصر اولیه آن تمرکز داشت. این مکتب که توسط <strong>ویلهلم وونت</strong> و شاگردش <strong>ادوارد تیچنر</strong> توسعه یافت، به دنبال شناسایی مؤلفه‌های اصلی آگاهی و نحوه ترکیب آن‌ها برای اجرای ساختارهای پیچیده‌تر ذهنی بود.
+                        </p>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>هدف اصلی:</strong> تجزیه ذهن به عناصر سازنده (احساسات، تصاویر و عواطف).</li>
+                            <li><strong>روش اصلی:</strong> درون‌نگری (Introspection)؛ یعنی مشاهده دقیق و گزارش تجربیات ذهنی شخصی.</li>
+                        </ul>
+
+                        <h3 class="mt-6 text-xl font-bold mb-3 text-indigo-700">کارکردگرایی (Functionalism)</h3>
+                        <p class="mb-4">
+                            کارکردگرایی در واکنش به ساختارگرایی شکل گرفت و بر کارکردها، فرآیندهای ذهنی و نحوه انطباق فرد با محیط تمرکز می‌کرد. کارکردگرایان، به رهبری <strong>ویلیام جیمز</strong>، بیشتر به این مسئله توجه داشتند که «چرا» ذهن و رفتار به شکل خاصی عمل می‌کنند، نه اینکه «ساختار» آن‌ها چیست. این مکتب تحت تأثیر نظریه تکامل داروین بود.
+                        </p>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>هدف اصلی:</strong> درک چگونگی کمک فرآیندهای ذهنی به بقا، انطباق و شکوفایی فرد در محیط.</li>
+                            <li><strong>تأکید بر:</strong> مطالعه تفاوت‌های فردی، یادگیری، و کاربردهای عملی روانشناسی.</li>
+                        </ul>
+                    `
+                },
+                {
+                    title: "تاریخچه و سیر تحول",
+                    content: `
+                        <h3 class="text-xl font-bold mb-3 text-indigo-700">ساختارگرایی (اواخر قرن نوزدهم)</h3>
+                        <p class="mb-4">
+                            با تأسیس اولین آزمایشگاه روانشناسی توسط ویلهلم وونت در لایپزیگ آلمان (۱۸۷۹)، ساختارگرایی به عنوان یک علم تجربی متولد شد. این رویکرد به دنبال افزایش دقت در مطالعات روانشناسی بود تا آن را هم‌سطح علوم طبیعی قرار دهد. با این حال، درون‌نگری به دلیل ذهنیت‌گرایی و عدم قابلیت تکرارپذیری، مورد انتقاد قرار گرفت.
+                        </p>
+                        
+                        <h3 class="mt-6 text-xl font-bold mb-3 text-indigo-700">کارکردگرایی (اواخر قرن نوزدهم و اوایل قرن بیستم)</h3>
+                        <p class="mb-4">
+                            ویلیام جیمز در کتاب "اصول روانشناسی" (۱۸۹۰)، با انتقاد از رویکرد اتم‌گرایانه ساختارگرایی، ذهن را به عنوان "جریان سیال آگاهی" توصیف کرد که نمی‌توان آن را به اجزای ثابت تجزیه کرد. این مکتب، با تمرکز بر اهمیت سازگاری، موجودیت روانشناسی را گسترش داد و به حوزه‌هایی مانند تعلیم و تربیت، روانشناسی صنعتی-سازمانی و مطالعه تفاوت‌های فردی وارد شد.
+                        </p>
+                    `
+                },
+                {
+                    title: "شخصیت‌های کلیدی و بنیان‌گذاران",
+                    content: `
+                        <h3 class="text-xl font-bold mb-3 text-indigo-700">بنیان‌گذاران ساختارگرایی</h3>
+                        <div class="flex flex-col sm:flex-row items-start mb-6">
+                            <img src="https://placehold.co/150x180/EFEFEF/333333?text=Wilhelm+Wundt" alt="ویلهلم وونت" class="float-left ml-4 mb-2 rounded-lg shadow-md w-32">
+                            <div class="flex-1">
+                                <p class="mb-4">چهره‌های اصلی این مکتب عبارتند از:</p>
+                                <ul class="list-disc pr-6 mt-2">
+                                    <li><strong>ویلهلم وونت (۱۸۳۲-۱۹۲۰):</strong> پدر روانشناسی آزمایشگاهی، مؤسس اولین آزمایشگاه روانشناسی در سال ۱۸۷۹.</li>
+                                    <li><strong>ادوارد تیچنر (۱۸۶۷-۱۹۲7):</strong> شاگرد وونت و مروج اصلی ساختارگرایی در آمریکا. او مفهوم "درون‌نگری" را توسعه داد.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <h3 class="mt-6 text-xl font-bold mb-3 text-indigo-700">بنیان‌گذاران کارکردگرایی</h3>
+                         <div class="flex flex-col sm:flex-row items-start">
+                            <img src="https://placehold.co/150x180/EFEFEF/333333?text=William+James" alt="ویلیام جیمز" class="float-left ml-4 mb-2 rounded-lg shadow-md w-32">
+                            <div class="flex-1">
+                                <p class="mb-4">چهره‌های اصلی این مکتب عبارتند از:</p>
+                                <ul class="list-disc pr-6 mt-2">
+                                    <li><strong>ویلیام جیمز (۱۸۴۲-۱۹۱۰):</strong> فیلسوف و روانشناس آمریکایی، نویسنده کتاب مهم "اصول روانشناسی" و از پیشگامان اصلی کارکردگرایی.</li>
+                                    <li><strong>جان دیویی (۱۸۵۹-۱۹۵۲):</strong> فیلسوف، روانشناس و مصلح آموزشی که کارکردهای ذهن را در زمینه آموزش به کار برد.</li>
+                                    <li><strong>جیمز رولند انجل (۱۸۶۹-۱۹۴۹):</strong> از چهره‌های برجسته مکتب شیکاگو در کارکردگرایی.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    `
+                },
+                {
+                    title: "مفاهیم، مدل‌ها و نظریه‌های بنیادی",
+                    content: `
+                        <h3 class="text-xl font-bold mb-3 text-indigo-700">مفاهیم کلیدی ساختارگرایی</h3>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>تجربه آگاهانه (Conscious Experience):</strong> تمرکز اصلی تحقیق. هدف، تجزیه این تجربه به عناصر اصلی بود.</li>
+                            <li><strong>عناصر ذهنی:</strong> احساسات (Sensations)، تصاویر (Images) و عواطف (Affects) سه مؤلفه اصلی ذهن پنداشته می‌شدند.</li>
+                            <li><strong>درون‌نگری سیستماتیک:</strong> روشی دقیق برای گزارش تجربیات ذهنی که به آموزش زیاد نیاز داشت.</li>
+                        </ul>
+                        <h3 class="mt-6 text-xl font-bold mb-3 text-indigo-700">مفاهیم کلیدی کارکردگرایی</h3>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>جریان آگاهی (Stream of Consciousness):</strong> مفهومی که ویلیام جیمز برای توصیف ماهیت پیوسته و پویای ذهن به کار برد، برخلاف دیدگاه ایستا و اتم‌گرایانه ساختارگرایی.</li>
+                            <li><strong>انطباق (Adaptation):</strong> تمرکز بر اینکه فرآیندهای ذهنی چگونه به فرد کمک می‌کنند تا با محیط خود سازگار شود.</li>
+                            <li><strong>عادت (Habit):</strong> کارکردگرایان عادت‌ها را به عنوان پاسخ‌های آموخته‌شده و خودکاری می‌دیدند که انرژی ذهنی را برای وظایف پیچیده‌تر آزاد می‌کنند.</li>
+                        </ul>
+                    `
+                },
+                {
+                    title: "روش‌های تحقیق",
+                    content: `
+                        <h3 class="text-xl font-bold mb-3 text-indigo-700">روش‌های تحقیق در ساختارگرایی</h3>
+                        <p class="mb-4">
+                            روش اصلی ساختارگرایی، <strong>درون‌نگری</strong> بود که طی آن، فرد آموزش‌دیده تجربیات ذهنی خود را با جزئیات توصیف می‌کرد. این روش شامل مراحل زیر بود:
+                        </p>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li>معرفی محرک کنتر‌ل‌شده (مانند نور یا صدا)</li>
+                            <li>گزارش دقیق احساسات، افکار و تصاویر ذهنی</li>
+                            <li>تجزیه گزارش به عناصر اولیه توسط محقق</li>
+                        </ul>
+                        <h3 class="mt-6 text-xl font-bold mb-3 text-indigo-700">روش‌های تحقیق در کارکردگرایی</h3>
+                        <p class="mb-4">
+                            کارکردگرایان از روش‌های متنوع‌تر و دقیق‌تری در شرایط آزمایشگاهی استفاده می‌کردند:
+                        </p>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>آزمایش‌های کنترل‌شده:</strong> مطالعه پدیده‌هایی مانند یادگیری و حل مسئله.</li>
+                            <li><strong>روش‌های فیزیولوژیک:</strong> بررسی ارتباط بین فعالیت‌های مغزی و فرآیندهای ذهنی.</li>
+                            <li><strong>مطالعه تطبیقی (Comparative Method):</strong> مقایسه رفتار و ذهن در گونه‌های مختلف (انسان و حیوان).</li>
+                            <li><strong>پرسشنامه و آزمون‌های روانی:</strong> برای اندازه‌گیری تفاوت‌های فردی.</li>
+                        </ul>
+                    `
+                },
+                {
+                    title: "نقاط قوت، چالش‌ها و میراث",
+                    content: `
+                        <h3 class="text-xl font-bold mb-3 text-indigo-700">نقاط قوت و چالش‌های ساختارگرایی</h3>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>نقاط قوت:</strong>
+                                <ul class="list-disc pr-6 mt-2">
+                                    <li>تلاش برای علمی کردن روانشناسی</li>
+                                    <li>تأکید بر مطالعه آگاهانه</li>
+                                    <li>پایه‌گذاری روانشناسی آزمایشگاهی</li>
+                                </ul>
+                            </li>
+                            <li><strong>چالش‌ها و محدودیت‌ها:</strong>
+                                <ul class="list-disc pr-6 mt-2">
+                                    <li><strong>ذهنیت‌گرایی:</strong> درون‌نگری یک روش بسیار ذهنی است و به سختی قابل تأیید است.</li>
+                                    <li><strong>محدودیت:</strong> فقط بر تجربیات آگاهانه بزرگسالان سالم تمرکز داشت و کودکان، حیوانات و افراد با اختلالات روانی را نادیده می‌گرفت.</li>
+                                    <li><strong>اتم‌گرایی:</strong> تجزیه ذهن به عناصر منفرد، پیچیدگی و پویایی آن را نادیده می‌گرفت.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <h3 class="mt-6 text-xl font-bold mb-3 text-indigo-700">نقاط قوت و چالش‌های کارکردگرایی</h3>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>نقاط قوت:</strong>
+                                <ul class="list-disc pr-6 mt-2">
+                                    <li><strong>کاربردی بودن:</strong> تمرکز بر کاربردهای عملی دانش روانشناسی در آموزش، صنعت و سلامت روان.</li>
+                                    <li><strong>گسترش دامنه روانشناسی:</strong> مطالعه حیوانات، کودکان و تجربیات غیرعادی را به حوزه روانشناسی افزود.</li>
+                                    <li><strong>تأثیر بلندمدت:</strong> ایده‌های کارکردگرایی بر مکاتب بعدی مانند رفتارگرایی و روانشناسی شناختی تأثیر گذاشت.</li>
+                                </ul>
+                            </li>
+                            <li><strong>چالش‌ها و محدودیت‌ها:</strong>
+                                <ul class="list-disc pr-6 mt-2">
+                                    <li><strong>فقدان نظریه منسجم:</strong> کارکردگرایی بیشتر یک رویکرد بود تا یک نظریه مشخص و سازمان‌یافته.</li>
+                                    <li><strong>ابهام در تعریف "کارکرد":</strong> تعریف دقیق کارکردهای ذهنی گاهی دشوار بود.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <h3 class="mt-6 text-xl font-bold mb-3 text-green-700">میراث و تأثیر امروزی</h3>
+                        <p>اگرچه هر دو مکتب به عنوان نهادهای رسمی از بین رفته‌اند، اما میراث آن‌ها باقی است. ساختارگرایی راه را برای رویکردهای علمی‌تر هموار کرد و کارکردگرایی با تأکید بر انطباق و کاربرد، زمینه‌ساز ظهور رفتارگرایی و روانشناسی تکاملی شد.</p>
+                    `
+                }
+            ]
+        },
+        {
+            title: "روانکاوی و رویکردهای روان‌پویشی",
+            sections: [
+                {
+                    title: "مقدمه و اصول اساسی",
+                    content: `
+                        <h3 class="text-xl font-bold mb-3 text-indigo-700">اصول اساسی روانکاوی (Psychoanalysis)</h3>
+                        <p class="mb-4">
+                            روانکاوی یک نظریه جامع درباره شخصیت، آسیب‌شناسی روانی و درمانی است که توسط <strong>زیگموند فروید</strong> بنیان‌گذاری شد. این رویکرد بر این باور است که بخش عمده‌ای از فرآیندهای روانی انسان، ناهشیار است و تجربیات دوران کودکی، به‌ویژه تعارضات حل‌نشده، تأثیر عمیقی بر رفتار و شخصیت بزرگسالی دارند.
+                        </p>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>ناهشیار (Unconscious):</strong> بخش بزرگی از ذهن که خارج از آگاهی است اما بر افکار، احساسات و رفتار تأثیر می‌گذارد.</li>
+                            <li><strong>جبرگرایی روانی (Psychic Determinism):</strong> هیچ رفتار یا فکر تصادفی نیست؛ همه چیز ریشه در فرآیندهای ذهنی قبلی دارد.</li>
+                            <li><strong>اهمیت تجربیات کودکی:</strong> شخصیت در پنج سال اول زندگی شکل می‌گیرد و تجربیات این دوره، به‌ویژه روابط با والدین، الگوهای رفتاری آینده را تعیین می‌کنند.</li>
+                        </ul>
+
+                        <h3 class="mt-6 text-xl font-bold mb-3 text-indigo-700">رویکردهای روان‌پویشی (Psychodynamic Approaches)</h3>
+                        <p class="mb-4">
+                            این رویکردها شامل نظریات فروید و نظریه‌پردازان بعدی است که بر پویایی انرژی روانی (لیبیدو) و تأثیر نیروهای ناهشیار در تعامل بین ساختارهای مختلف شخصیت (نهاد، خود، فراخود) تمرکز دارند. همچنین بر اهمیت механизم‌های دفاعی و پویایی روابط بین فردی تأکید دارند.
+                        </p>
+                    `
+                },
+                {
+                    title: "تاریخچه و سیر تحول",
+                    content: `
+                        <p class="mb-4">
+                            روانکاوی در اواخر قرن نوزدهم و اوایل قرن بیستم در وین اتریش، توسط زیگموند فروید پایه‌گذاری شد. فروید در ابتدا با همکاری <strong>یوزف بروئر</strong>، از روش هیپنوتیزم برای درمان بیماران هیستری استفاده می‌کرد. این تجربیات، او را به مفهوم ناهشیار و اهمیت تخلیه هیجانی (کاتارسیس) سوق داد.
+                        </p>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>عصر کلاسیک روانکاوی:</strong> با انتشار کتاب‌هایی مانند "تعبیر رؤیا" (۱۹۰۰) و "آسیب‌شناسی روانی زندگی روزمره" (۱۹۰۱)، فروید نظریه‌های اصلی خود را ارائه داد.</li>
+                            <li><strong>پیدایش انشعاب‌ها:</strong> شاگردان فروید مانند <strong>آلفرد آدلر</strong> و <strong>کارل یونگ</strong> با برخی از جنبه‌های نظریه او، به‌ویژه تأکید بیش از حد بر غریزه جنسی، مخالفت کردند و مکاتب روانشناسی فردنگر و روانشناسی تحلیلی را بنیان نهادند.</li>
+                            <li><strong>نظریه‌پردازان روابط ابژه و روانشناسی خود (Self Psychology):</strong> در اواسط قرن بیستم، نظریه‌پردازانی مانند ملانی کلاین، دونالد وینیکات و هاینتس کوهوت، تمرکز را از غرایز به سمت اهمیت روابط اولیه (روابط ابژه) و رشد "خود" تغییر دادند.</li>
+                        </ul>
+                    `
+                },
+                {
+                    title: "شخصیت‌های کلیدی و بنیان‌گذاران",
+                    content: `
+                        <h3 class="text-xl font-bold mb-3 text-indigo-700">زیگموند فروید (۱۸۵۶-۱۹۳۹)</h3>
+                        <div class="flex flex-col sm:flex-row items-start mb-6">
+                            <img src="https://placehold.co/150x180/EFEFEF/333333?text=Sigmund+Freud" alt="زیگموند فروید" class="float-left ml-4 mb-2 rounded-lg shadow-md w-32">
+                            <p class="flex-1">
+                                بنیان‌گذار روانکاوی. نظریه‌های او در مورد ساختار شخصیت، مراحل رشد روانی-جنسی، تعبیر رؤیا و مکانیزم‌های دفاعی، انقلابی در درک ذهن انسان ایجاد کرد.
+                            </p>
+                        </div>
+                        
+                        <h3 class="mt-6 text-xl font-bold mb-3 text-indigo-700">نوفرویدیان و دیگر شخصیت‌های مهم</h3>
+                        <ul class="list-disc pr-6 mt-2 space-y-2">
+                            <li><strong>کارل یونگ (۱۸۷۵-۱۹۶۱):</strong> بنیان‌گذار روانشناسی تحلیلی. مفاهیمی کلیدی مانند ناهشیار جمعی، کهن‌الگوها و درون‌گرایی/برون‌گرایی را مطرح کرد.</li>
+                            <li><strong>آلفرد آدلر (۱۸۷۰-۱۹۳۷):</strong> بنیان‌گذار روانشناسی فردنگر. بر اهمیت احساس حقارت، تلاش برای برتری و علاقه اجتماعی تأکید کرد.</li>
+                            <li><strong>کارن هورنای (۱۸۸۵-۱۹۵۲):</strong> از اولین منتقدان فروید. بر نقش عوامل اجتماعی و فرهنگی در شکل‌گیری شخصیت و اضطراب بنیادین تأکید داشت.</li>
+                            <li><strong>اریک اریکسون (۱۹۰۲-۱۹۹۴):</strong> نظریه رشد روانی-اجتماعی را توسعه داد که شامل هشت مرحله از تولد تا کهنسالی است.</li>
+                            <li><strong>ملانی کلاین (۱۸۸۲-۱۹۶۰):</strong> از پیشگامان نظریه روابط ابژه، که بر اهمیت روابط اولیه نوزاد با مراقبان (به‌ویژه مادر) و تأثیر آن بر رشد روانی تأکید کرد.</li>
+                        </ul>
+                    `
+                },
+                {
+                    title: "مفاهیم، مدل‌ها و نظریه‌های بنیادی",
+                    content: `
+                        <h3 class="text-xl font-bold mb-3 text-indigo-700">مفاهیم اصلی نظریه فروید</h3>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>سطوح هشیاری:</strong> هشیار (آگاه)، نیمه‌هشیار (قابل دسترس) و ناهشیار (سرکوب‌شده). (نمودار کوه یخ)</li>
+                            <li><strong>ساختار شخصیت:</strong>
+                                <ul class="list-disc pr-4 mt-2">
+                                    <li><strong>نهاد (Id):</strong> بخش غریزی شخصیت که بر اساس اصل لذت عمل می‌کند و به دنبال ارضای فوری نیازها و امیال اولیه است.</li>
+                                    <li><strong>خود (Ego):</strong> بخش واقع‌گرای شخصیت که بر اساس اصل واقعیت عمل می‌کند و میان خواسته‌های نهاد، محدودیت‌های فراخود و دنیای بیرونی تعادل برقرار می‌سازد.</li>
+                                    <li><strong>فراخود (Superego):</strong> بخش اخلاقی شخصیت که شامل وجدان و ایده‌آل‌های درونی‌شده است.</li>
+                                </ul>
+                            </li>
+                            <li><strong>مکانیزم‌های دفاعی:</strong> راهبردهای ناهشیاری که "خود" برای کاهش اضطراب به کار می‌گیرد (مانند سرکوب، فرافکنی، انکار).</li>
+                            <li><strong>مراحل رشد روانی-جنسی:</strong>
+                                <ul class="list-disc pr-4 mt-2">
+                                    <li>مرحله دهانی (۰-۱ سالگی)</li>
+                                    <li>مرحله مقعدی (۱-۳ سالگی)</li>
+                                    <li>مرحله آلتی (۳-۶ سالگی): شامل عقده ادیپ و الکترا.</li>
+                                    <li>دوره نهفتگی (۶-۱۲ سالگی): سرکوب غرایز جنسی و تمرکز بر مهارت‌های اجتماعی.</li>
+                                    <li>مرحله تناسلی (۱۲ سالگی به بعد): بلوغ جنسی و روابط سالم.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        
+                        <h3 class="mt-6 text-xl font-bold mb-3 text-indigo-700">مفاهیم کلیدی در نظریه یونگ</h3>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>ناهشیار جمعی:</strong> مخزن مشترک تجربیات انسانی که از نیاکان به ارث رسیده و شامل کهن‌الگوها (Archetypes) است.</li>
+                            <li><strong>کهن‌الگوها:</strong> تصاویر و نمادهای جهانی مانند پرسونا، سایه، آنیما/آنیموس، خود (Self).</li>
+                            <li><strong>فردیت‌یابی (Individuation):</strong> فرآیندی در جهت دستیابی به تمامیت و یکپارچگی روانی، با ادغام بخش‌های هشیار و ناهشیار.</li>
+                        </ul>
+
+                        <h3 class="mt-6 text-xl font-bold mb-3 text-indigo-700">مفاهیم کلیدی در نظریه آدلر</h3>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>احساس حقارت:</strong> نیروی محرکه اصلی در رشد شخصیت.</li>
+                            <li><strong>سبک زندگی:</strong> الگوی منحصربه‌فرد هر شخص برای دستیابی به اهداف و غلبه بر حقارت.</li>
+                            <li><strong>علاقه اجتماعی:</strong> احساس تعلق و همکاری با دیگران، نشانه‌ای از سلامت روانی.</li>
+                        </ul>
+                    `
+                },
+                {
+                    title: "روش‌های تحقیق و درمانی",
+                    content: `
+                        <p class="mb-4">
+                            روش‌های زیر عمدتاً بر اساس مشاهدات بالینی، مطالعات موردی و تحلیل گفتار بیماران شکل گرفته‌اند، نه بر اساس آزمایش‌های کنترل‌شده.
+                        </p>
+
+                        <h3 class="text-xl font-bold mb-3 text-indigo-700">روش‌های درمانی در روانکاوی کلاسیک</h3>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>تداعی آزاد (Free Association):</strong> بیمار هر آنچه را که به ذهنش می‌رسد، بدون سانسور بیان می‌کند. این روش برای دستیابی به محتوای ناهشیار طراحی شده است.</li>
+                            <li><strong>تحلیل رؤیا:</strong> فروید رؤیا را «شاهراهی به ناهشیار» می‌دانست. محتوای آشکار رؤیا (داستان) و محتوای نهفته (معنای نمادین) تحلیل می‌شود.</li>
+                            <li><strong>تحلیل انتقال (Transference):</strong> بیمار احساسات و الگوهای رفتاری مرتبط با شخصیت‌های مهم گذشته خود (مانند والدین) را به درمانگر فرافکنی می‌کند.</li>
+                            <li><strong>تفسیر (Interpretation):</strong> درمانگر معنای ناهشیار افکار، رؤیاها و رفتارهای بیمار را برای او توضیح می‌دهد تا به بینش (Insight) دست یابد.</li>
+                        </ul>
+                        
+                        <h3 class="mt-6 text-xl font-bold mb-3 text-indigo-700">روش‌های درمانی روان‌پویشی مدرن</h3>
+                        <p class="mb-4">
+                            اگرچه این گروه همچنان از مفاهیم بنیادی روانکاوی الهام می‌گیرند، اما فرآیندهای درمانی کوتاه‌مدت‌تر و متمرکزتری دارند:
+                        </p>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>درمان کوتاه‌مدت روان‌پویشی:</strong> تمرکز بر یک مشکل خاص، با تعداد جلسات محدود.</li>
+                            <li><strong>رویکردهای روابط ابژه:</strong> تمرکز بر الگوهای روابط بین فردی فعلی و ریشه آن‌ها در تجربیات کودکی.</li>
+                            <li><strong>درمان مبتنی بر انتقال (TFP):</strong> برای اختلالات شخصیت، به‌ویژه شخصیت مرزی.</li>
+                            <li><strong>روان‌درمانی بین‌فردی (IPT):</strong> تمرکز بر روابط فعلی، ارتباطات و حل تعارضات بین فردی.</li>
+                        </ul>
+                    `
+                },
+                {
+                    title: "نقاط قوت، چالش‌ها و میراث",
+                    content: `
+                        <h3 class="text-xl font-bold mb-3 text-indigo-700">نقاط قوت روانکاوی</h3>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>کشف ناهشیار:</strong> یکی از بزرگترین دستاوردهای فروید، معرفی مفهوم قدرتمند ناهشیار بود.</li>
+                            <li><strong>نقش تجربیات کودکی:</strong> تأکید بر اهمیت دوران کودکی در شکل‌گیری شخصیت بزرگسالی.</li>
+                            <li><strong>ارائه اولین نظریه جامع شخصیت و روان‌درمانی:</strong> این مکتب یک چارچوب کامل برای درک و درمان اختلالات روانی ارائه کرد.</li>
+                            <li><strong>توسعه مکانیزم‌های دفاعی:</strong> شناسایی راهبردهایی که افراد برای مقابله با اضطراب به کار می‌برند.</li>
+                        </ul>
+
+                        <h3 class="mt-6 text-xl font-bold mb-3 text-indigo-700">چالش‌ها و محدودیت‌ها</h3>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>فقدان شواهد تجربی:</strong> بسیاری از مفاهیم روانکاوی (مانند انرژی لیبیدو) انتزاعی و غیرقابل آزمایش هستند.</li>
+                            <li><strong>تأکید بیش از حد بر غرایز جنسی و پرخاشگری:</strong> منتقدان معتقدند فروید نقش عوامل اجتماعی، فرهنگی و یادگیری را نادیده گرفته است.</li>
+                            <li><strong>نمونه‌گیری مغرضانه:</strong> نظریه‌های فروید عمدتاً بر اساس مطالعات موردی روی بیماران زن طبقه متوسط و بالای جامعه وینی شکل گرفته‌اند.</li>
+                            <li><strong>بدبینی نسبت به طبیعت انسان:</strong> رویکرد فروید به طبیعت انسان بدبینانه است و بر جنبه‌های تاریک شخصیت تمرکز دارد.</li>
+                            <li><strong>طولانی و پرهزینه بودن درمان:</strong> روانکاوی کلاسیک یک فرآیند طولانی‌مدت و پرهزینه است.</li>
+                        </ul>
+                        <h3 class="mt-6 text-xl font-bold mb-3 text-green-700">میراث و تأثیر امروزی</h3>
+                        <p>روانکاوی تأثیر عمیقی بر فرهنگ عامه، ادبیات، هنر و فلسفه گذاشته است. در روانشناسی مدرن، مفاهیمی مانند ناهشیار، مکانیزم‌های دفاعی و اهمیت تجربیات اولیه همچنان مورد توجه هستند و پایه‌های روان‌درمانی‌های پویشی امروزی را تشکیل می‌دهند.</p>
+                    `
+                }
+            ]
+        },
+        {
+            title: "رفتارگرایی (Behaviorism)",
+            sections: [
+                {
+                    title: "مقدمه و اصول اساسی",
+                    content: `
+                        <h3 class="text-xl font-bold mb-3 text-indigo-700">اصول بنیادی رفتارگرایی</h3>
+                        <p class="mb-4">
+                            رفتارگرایی یک رویکرد در روانشناسی است که بر مطالعه رفتار قابل مشاهده تمرکز دارد و معتقد است که تمام رفتارها از طریق شرطی‌سازی (Conditioning) در محیط آموخته می‌شوند. این مکتب، فرآیندهای ذهنی درونی مانند افکار و احساسات را غیرقابل مشاهده و بنابراین غیرعلمی می‌داند.
+                        </p>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>محیط‌گرایی (Environmentalism):</strong> تأکید بر نقش محیط به عنوان عامل اصلی تعیین‌کننده رفتار.</li>
+                            <li><strong>رفتار قابل مشاهده:</strong> تمرکز انحصاری بر محرک‌ها (Stimuli) و پاسخ‌ها (Responses) که قابل اندازه‌گیری عینی هستند.</li>
+                            <li><strong>یادگیری:</strong> فرآیند اصلی شکل‌دهی به رفتار.</li>
+                            <li><strong>هم‌ارزی فرآیندهای یادگیری:</strong> اصول یادگیری (مانند شرطی‌سازی کلاسیک و کنشگر) در بین همه گونه‌ها (از جمله انسان و حیوان) یکسان است.</li>
+                        </ul>
+                    `
+                },
+                {
+                    title: "تاریخچه و سیر تحول",
+                    content: `
+                        <p class="mb-4">
+                            رفتارگرایی در اوایل قرن بیستم (حدود ۱۹۱۰-۱۹۲۰)، در واکنش به ذهن‌گرایی و درون‌نگری مکاتب ساختارگرایی و روانکاوی ظهور کرد. این جنبش به دنبال تبدیل روانشناسی به یک علم طبیعی عینی و دقیق، شبیه به فیزیک و شیمی بود.
+                        </p>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>رفتارگرایی کلاسیک (واتسون):</strong> جان بی. واتسون در "مانیفست رفتارگرایی" (۱۹۱۳)، روانشناسی را به عنوان "شاخه‌ای کاملاً عینی و تجربی از علوم طبیعی" تعریف کرد و درون‌نگری را رد کرد.</li>
+                            <li><strong>شرطی‌سازی کنشگر (اسکینر):</strong> بی. اف. اسکینر، با تمرکز بر نقش پیامدها (تقویت و تنبیه) در کنترل رفتار، رفتارگرایی را گسترش داد. جعبه اسکینر (Skinner Box) ابزار اصلی او برای مطالعه یادگیری بود.</li>
+                            <li><strong>دوران گذار به شناخت‌گرایی:</strong> با وجود تسلط رفتارگرایی برای چندین دهه، از دهه ۱۹۵۰ به بعد، انتقاداتی مبنی بر نادیده گرفتن فرآیندهای شناختی مطرح شد که به ظهور "انقلاب شناختی" کمک کرد.</li>
+                        </ul>
+                    `
+                },
+                {
+                    title: "شخصیت‌های کلیدی و بنیان‌گذاران",
+                    content: `
+                        <h3 class="text-xl font-bold mb-3 text-indigo-700">بنیان‌گذاران و پیشگامان اولیه</h3>
+                        <div class="flex flex-col sm:flex-row items-start mb-6">
+                             <img src="https://placehold.co/150x180/EFEFEF/333333?text=Ivan+Pavlov" alt="ایوان پاولف" class="float-left ml-4 mb-2 rounded-lg shadow-md w-32">
+                            <div class="flex-1">
+                                <ul class="list-disc pr-6 mt-2 space-y-2">
+                                    <li><strong>ایوان پاولف (۱۸۴۹-۱۹۳۶):</strong> فیزیولوژیست روسی که با آزمایش‌های خود روی سگ‌ها، اصول شرطی‌سازی کلاسیک را کشف کرد.</li>
+                                    <li><strong>جان بی. واتسون (۱۸۷۸-۱۹۵۸):</strong> بنیان‌گذار رفتارگرایی. با آزمایش معروف "آلبرت کوچولو"، نشان داد که هیجانات نیز می‌توانند شرطی شوند.</li>
+                                    <li><strong>ادوارد ثورندایک (۱۸۷۴-۱۹۴۹):</strong> با کار بر روی گربه‌ها در "جعبه‌های معما"، "قانون اثر" (Law of Effect) را مطرح کرد: رفتارهایی که پیامدهای خوشایند دارند، تکرار می‌شوند.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <h3 class="mt-6 text-xl font-bold mb-3 text-indigo-700">رفتارگرایان رادیکال و نو-رفتارگرایان</h3>
+                        <div class="flex flex-col sm:flex-row items-start">
+                             <img src="https://placehold.co/150x180/EFEFEF/333333?text=B.F.+Skinner" alt="بی. اف. اسکینر" class="float-left ml-4 mb-2 rounded-lg shadow-md w-32">
+                            <div class="flex-1">
+                                <ul class="list-disc pr-6 mt-2 space-y-2">
+                                    <li><strong>بی. اف. اسکینر (۱۹۰۴-۱۹۹۰):</strong> تأثیرگذارترین رفتارگرا. بنیان‌گذار رفتارگرایی رادیکال که بر شرطی‌سازی کنشگر و تحلیل رفتار تأکید داشت.</li>
+                                    <li><strong>کلارک هال (۱۸۸۴-۱۹۵۲):</strong> یک نو-رفتارگرا که سعی کرد نظریه‌ای ریاضی‌وار و دقیق برای پیش‌بینی رفتار ارائه دهد.</li>
+                                    <li><strong>ادوارد تولمن (۱۸۸۶-۱۹۵۹):</strong> یک نو-رفتارگرا که مفاهیم شناختی مانند "نقشه شناختی" و "یادگیری نهفته" را به رفتارگرایی افزود.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    `
+                },
+                {
+                    title: "مفاهیم، مدل‌ها و نظریه‌های بنیادی",
+                    content: `
+                        <h3 class="text-xl font-bold mb-3 text-indigo-700">شرطی‌سازی کلاسیک (پاولف)</h3>
+                        <p class="mb-4">
+                            فرآیندی که در آن یک محرک خنثی (مانند صدای زنگ) با یک محرک غیرشرطی (مانند غذا) که به طور طبیعی پاسخی را ایجاد می‌کند (ترشح بزاق)، همراه می‌شود. پس از تکرار، محرک خنثی به تنهایی قادر به ایجاد همان پاسخ خواهد بود.
+                        </p>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>محرک غیرشرطی (US) و پاسخ غیرشرطی (UR)</strong></li>
+                            <li><strong>محرک شرطی (CS) و پاسخ شرطی (CR)</strong></li>
+                            <li><strong>مفاهیم:</strong> اکتساب، خاموشی، بازیابی خودبه‌خودی، تعمیم و تمایز.</li>
+                        </ul>
+
+                        <h3 class="mt-6 text-xl font-bold mb-3 text-indigo-700">شرطی‌سازی کنشگر (اسکینر)</h3>
+                        <p class="mb-4">
+                            فرآیندی که در آن احتمال تکرار یک رفتار بر اساس پیامدهای آن تغییر می‌کند.
+                        </p>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>تقویت (Reinforcement):</strong> هر پیامدی که احتمال تکرار رفتار را افزایش دهد.
+                                <ul class="list-disc pr-4 mt-2">
+                                    <li><strong>تقویت مثبت:</strong> ارائه یک محرک خوشایند (مانند جایزه).</li>
+                                    <li><strong>تقویت منفی:</strong> حذف یک محرک ناخوشایند (مانند صدای آزاردهنده).</li>
+                                </ul>
+                            </li>
+                            <li><strong>تنبیه (Punishment):</strong> هر پیامدی که احتمال تکرار رفتار را کاهش دهد.
+                                <ul class="list-disc pr-4 mt-2">
+                                    <li><strong>تنبیه مثبت:</strong> ارائه یک محرک ناخوشایند (مانند توبیخ).</li>
+                                    <li><strong>تنبیه منفی:</strong> حذف یک محرک خوشایند (مانند گرفتن امتیاز).</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    `
+                },
+                {
+                    title: "روش‌های تحقیق و درمانی",
+                    content: `
+                        <h3 class="text-xl font-bold mb-3 text-indigo-700">روش‌های تحقیق در رفتارگرایی</h3>
+                        <p class="mb-4">
+                            رفتارگرایی به شدت بر روش‌های عینی و آزمایشگاهی تأکید دارد:
+                        </p>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>آزمایش‌های کنترل‌شده در آزمایشگاه:</strong> استفاده از حیوانات (موش‌ها، کبوترها) برای مطالعه اصول یادگیری در محیط‌های کاملاً کنترل‌شده مانند جعبه اسکینر.</li>
+                            <li><strong>مشاهده عینی رفتار:</strong> ثبت دقیق فراوانی، شدت و مدت زمان رفتارها.</li>
+                        </ul>
+
+                        <h3 class="mt-6 text-xl font-bold mb-3 text-indigo-700">روش‌های درمانی رفتارگرایی</h3>
+                        <p class="mb-4">
+                            این روش‌ها که به عنوان <strong>رفتاردرمانی (Behavior Therapy)</strong> شناخته می‌شوند، بر تغییر رفتارهای ناسازگار از طریق اصول یادگیری تمرکز دارند:
+                        </p>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>حساسیت‌زدایی منظم (Systematic Desensitization):</strong> برای درمان فوبیاها، با ترکیب آرام‌سازی و مواجهه تدریجی با محرک ترسناک.</li>
+                            <li><strong>اقتصاد ژتونی (Token Economy):</strong> استفاده از تقویت‌کننده‌های ثانویه (ژتون) برای تقویت رفتارهای مطلوب، به‌ویژه در محیط‌های سازمانی (مانند بیمارستان‌ها و مدارس).</li>
+                            <li><strong>غرقه سازی (Flooding):</strong> مواجهه مستقیم و طولانی‌مدت با محرک ترسناک تا زمانی که پاسخ اضطراب خاموش شود.</li>
+                            <li><strong>درمان بیزاری‌آور (Aversion Therapy):</strong> همراه کردن یک رفتار نامطلوب (مانند مصرف الکل) با یک محرک ناخوشایند (مانند تهوع).</li>
+                        </ul>
+                    `
+                },
+                {
+                    title: "نقاط قوت، چالش‌ها و میراث",
+                    content: `
+                        <h3 class="text-xl font-bold mb-3 text-indigo-700">نقاط قوت رفتارگرایی</h3>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>عینیت و قابلیت اندازه‌گیری:</strong> تمرکز بر رفتار قابل مشاهده، روانشناسی را به یک علم دقیق‌تر تبدیل کرد.</li>
+                            <li><strong>کاربردهای درمانی مؤثر:</strong> رفتاردرمانی برای درمان طیف وسیعی از اختلالات مانند فوبیا، اضطراب و رفتارهای وسواسی-جبری بسیار مؤثر است.</li>
+                            <li><strong>تأکید بر یادگیری:</strong> نقش مهم محیط و یادگیری را در شکل‌دهی رفتار برجسته کرد.</li>
+                        </ul>
+
+                        <h3 class="mt-6 text-xl font-bold mb-3 text-indigo-700">چالش‌ها و محدودیت‌ها</h3>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>نادیده گرفتن فرآیندهای شناختی و بیولوژیکی:</strong> رفتارگرایی به طور کامل نقش افکار، احساسات و عوامل ژنتیکی را در رفتار نادیده می‌گیرد. این رویکرد به عنوان "جعبه سیاه" (Black Box) شناخته می‌شود.</li>
+                            <li><strong>تقلیل‌گرایی (Reductionism):</strong> توضیح رفتارهای پیچیده انسانی تنها بر اساس محرک-پاسخ، یک دیدگاه بسیار ساده‌انگارانه است.</li>
+                            <li><strong>جبرگرایی محیطی:</strong> این دیدگاه نقش اراده آزاد و انتخاب فردی را نادیده می‌گیرد و انسان را موجودی منفعل در برابر محیط می‌داند.</li>
+                        </ul>
+                        <h3 class="mt-6 text-xl font-bold mb-3 text-green-700">میراث و تأثیر امروزی</h3>
+                        <p>اصول رفتارگرایی پایه‌های اصلی <strong>درمان شناختی-رفتاری (CBT)</strong>، یکی از مؤثرترین رویکردهای درمانی امروزی، را تشکیل می‌دهد. همچنین در آموزش، فرزندپروری و مدیریت سازمانی کاربردهای فراوانی دارد.</p>
+                    `
+                }
+            ]
+        },
+        {
+            title: "روانشناسی گشتالت",
+            sections: [
+                {
+                    title: "مقدمه و اصول اساسی",
+                    content: `
+                        <h3 class="text-xl font-bold mb-3 text-indigo-700">اصول بنیادی روانشناسی گشتالت</h3>
+                        <p class="mb-4">
+                            روانشناسی گشتالت که در اوایل قرن بیستم در آلمان ظهور کرد، واکنشی به رویکرد اتم‌گرایانه ساختارگرایی بود. شعار اصلی این مکتب این است: <strong>«کل، چیزی متفاوت (و فراتر) از مجموع اجزای آن است.»</strong> گشتالت بر مطالعه تجربه و رفتار به صورت یکپارچه و کلی تمرکز دارد، نه تجزیه آن به عناصر سازنده. این رویکرد معتقد است که ذهن ما به طور فعال تجربیات حسی را در قالب الگوها یا "گشتالت‌های" معنادار سازماندهی می‌کند.
+                        </p>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>کل‌گرایی (Holism):</strong> تأکید بر مطالعه پدیده‌ها به صورت کلی و یکپارچه.</li>
+                            <li><strong>پدیدارشناسی (Phenomenology):</strong> تمرکز بر تجربه ذهنی و بی‌واسطه فرد.</li>
+                            <li><strong>سازماندهی ادراکی:</strong> ذهن به طور فعال اطلاعات را سازماندهی می‌کند و صرفاً یک دریافت‌کننده منفعل نیست.</li>
+                        </ul>
+                    `
+                },
+                {
+                    title: "تاریخچه و سیر تحول",
+                    content: `
+                        <p class="mb-4">
+                            روانشناسی گشتالت در حدود سال ۱۹۱۰ در فرانکفورت آلمان با کارهای <strong>ماکس ورتهایمر</strong> در مورد حرکت ظاهری یا "پدیده فای" آغاز شد. او نشان داد که دو نور ثابت که به سرعت پشت سر هم خاموش و روشن می‌شوند، به صورت یک نور متحرک واحد درک می‌شوند، که این تجربه را نمی‌توان به اجزای سازنده‌اش (دو نور ثابت) تقلیل داد.
+                        </p>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>مرکز اصلی:</strong> دانشگاه‌های فرانکفورت و برلین در آلمان.</li>
+                            <li><strong>مهاجرت به آمریکا:</strong> با به قدرت رسیدن نازی‌ها در دهه ۱۹۳۰، بنیان‌گذاران اصلی گشتالت (که یهودی بودند) به آمریکا مهاجرت کردند. این مهاجرت باعث گسترش ایده‌های آن‌ها شد، اما در عین حال آن‌ها را در مقابل مکتب قدرتمند رفتارگرایی قرار داد.</li>
+                            <li><strong>تأثیر بر روانشناسی مدرن:</strong> اگرچه گشتالت به عنوان یک مکتب رسمی افول کرد، ایده‌های آن عمیقاً بر روانشناسی شناختی، اجتماعی و انسان‌گرا تأثیر گذاشته است.</li>
+                        </ul>
+                    `
+                },
+                {
+                    title: "شخصیت‌های کلیدی و بنیان‌گذاران",
+                    content: `
+                        <h3 class="text-xl font-bold mb-3 text-indigo-700">بنیان‌گذاران اصلی</h3>
+                        <div class="flex flex-col sm:flex-row items-start mb-6">
+                            <img src="https://placehold.co/150x180/EFEFEF/333333?text=Max+Wertheimer" alt="ماکس ورتهایمر" class="float-left ml-4 mb-2 rounded-lg shadow-md w-32">
+                            <div class="flex-1">
+                                <ul class="list-disc pr-6 mt-2 space-y-2">
+                                    <li><strong>ماکس ورتهایمر (۱۸۸۰-۱۹۴۳):</strong> بنیان‌گذار اصلی مکتب گشتالت که با مطالعه "پدیده فای" آن را پایه‌گذاری کرد.</li>
+                                    <li><strong>کورت کافکا (۱۸۸۶-۱۹۴۱):</strong> سخنگوی اصلی مکتب که با انتشار مقاله "ادراک: مقدمه‌ای بر نظریه گشتالت" در آمریکا، این رویکرد را به جهان انگلیسی‌زبان معرفی کرد.</li>
+                                    <li><strong>ولفگانگ کهلر (۱۸۸۷-۱۹۶۷):</strong> به خاطر آزمایش‌هایش روی شامپانزه‌ها و مفهوم "یادگیری از طریق بینش" مشهور است.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    `
+                },
+                {
+                    title: "مفاهیم، مدل‌ها و نظریه‌های بنیادی",
+                    content: `
+                        <h3 class="text-xl font-bold mb-3 text-indigo-700">قوانین سازماندهی ادراکی</h3>
+                        <p class="mb-4">
+                            ذهن چگونه عناصر مجزا را به یک کل معنادار تبدیل می‌کند؟ گشتالت چندین قانون را برای این فرآیند پیشنهاد داد:
+                        </p>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>قانون شکل و زمینه (Figure-Ground):</strong> ما تمایل داریم بخشی از میدان دید را به عنوان "شکل" (جلوتر) و بقیه را به عنوان "زمینه" (عقب‌تر) درک کنیم.</li>
+                            <li><strong>قانون مجاورت (Proximity):</strong> اشیائی که به هم نزدیک‌ترند، به عنوان یک گروه واحد درک می‌شوند.</li>
+                            <li><strong>قانون مشابهت (Similarity):</strong> اشیائی که شبیه به هم هستند، با هم گروه‌بندی می‌شوند.</li>
+                            <li><strong>قانون بستار یا تکمیل (Closure):</strong> ما تمایل داریم اشکال ناقص را به صورت کامل درک کنیم و جاهای خالی را پر کنیم.</li>
+                            <li><strong>قانون پیوستگی (Continuity):</strong> ما خطوط و الگوها را به گونه‌ای درک می‌کنیم که مسیرشان را به نرم‌ترین شکل ممکن ادامه دهند.</li>
+                        </ul>
+                        <h3 class="mt-6 text-xl font-bold mb-3 text-indigo-700">یادگیری از طریق بینش (Insight Learning)</h3>
+                        <p>آزمایش‌های کهلر با شامپانزه‌ها نشان داد که حل مسئله همیشه از طریق آزمون و خطا (دیدگاه رفتارگرایان) رخ نمی‌دهد. گاهی حیوان پس از مدتی فکر کردن، ناگهان به یک راه‌حل دست می‌یابد (یک "آها!"). این درک ناگهانی از روابط بین عناصر یک مسئله، "بینش" نامیده می‌شود.</p>
+                    `
+                },
+                {
+                    title: "روش‌های تحقیق و درمانی",
+                    content: `
+                        <h3 class="text-xl font-bold mb-3 text-indigo-700">روش‌های تحقیق</h3>
+                        <p class="mb-4">
+                            روش اصلی تحقیق در گشتالت، <strong>پدیدارشناسی</strong> بود. در این روش، از شرکت‌کنندگان خواسته می‌شد تا تجربیات ذهنی خود را همان‌گونه که هستند، بدون تجزیه و تحلیل یا درون‌نگری به سبک ساختارگرایان، توصیف کنند. هدف، درک تجربه بی‌واسطه بود.
+                        </p>
+                        <h3 class="mt-6 text-xl font-bold mb-3 text-indigo-700">گشتالت درمانی (Gestalt Therapy)</h3>
+                        <p class="mb-4">
+                            اگرچه گشتالت درمانی توسط <strong>فریتز پرلز</strong> توسعه یافت و با مکتب اصلی تفاوت‌هایی دارد، اما عمیقاً از اصول آن الهام گرفته است. این رویکرد درمانی بر موارد زیر تأکید دارد:
+                        </p>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>تمرکز بر اینجا و اکنون (Here and Now):</strong> تأکید بر تجربیات و احساسات فعلی مراجع.</li>
+                            <li><strong>آگاهی (Awareness):</strong> کمک به مراجع برای آگاه شدن از احساسات، افکار و رفتارهای خود در لحظه حال.</li>
+                            <li><strong>مسئولیت‌پذیری:</strong> تشویق مراجع به پذیرش مسئولیت زندگی و انتخاب‌هایش.</li>
+                            <li><strong>تکنیک صندلی خالی (Empty Chair Technique):</strong> روشی برای حل تعارضات درونی یا بین فردی.</li>
+                        </ul>
+                    `
+                },
+                {
+                    title: "نقاط قوت، چالش‌ها و میراث",
+                    content: `
+                        <h3 class="text-xl font-bold mb-3 text-indigo-700">نقاط قوت روانشناسی گشتالت</h3>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li>تأثیر عمیق بر درک ما از ادراک و تفکر.</li>
+                            <li>به چالش کشیدن رویکردهای تقلیل‌گرایانه (مانند ساختارگرایی و رفتارگرایی).</li>
+                            <li>پایه‌گذاری اصول مهمی که بعداً در روانشناسی شناختی و اجتماعی به کار رفت.</li>
+                        </ul>
+
+                        <h3 class="mt-6 text-xl font-bold mb-3 text-indigo-700">چالش‌ها و محدودیت‌ها</h3>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li>مفاهیم آن اغلب توصیفی هستند تا تبیینی (مثلاً قوانین ادراک توضیح نمی‌دهند که *چرا* مغز این‌گونه عمل می‌کند).</li>
+                            <li>روش‌های تحقیق آن کمتر از رویکردهای دیگر (مانند رفتارگرایی) کنترل‌شده و عینی بودند.</li>
+                            <li>در محیط علمی تحت سلطه رفتارگرایی در آمریکا، برای کسب مقبولیت با چالش مواجه شد.</li>
+                        </ul>
+                        <h3 class="mt-6 text-xl font-bold mb-3 text-green-700">میراث و تأثیر امروزی</h3>
+                        <p>اصول گشتالت امروزه در طراحی گرافیک، طراحی رابط کاربری (UI/UX) و هنر به طور گسترده استفاده می‌شود. در روانشناسی، ایده‌های آن در مورد حل مسئله و تفکر کل‌نگر، پایه‌های روانشناسی شناختی را شکل داد و گشتالت درمانی همچنان یک رویکرد درمانی محبوب است.</p>
+                    `
+                }
+            ]
+        },
+        {
+            title: "روانشناسی شناختی",
+            sections: [
+                {
+                    title: "مقدمه و اصول اساسی",
+                    content: `
+                        <h3 class="text-xl font-bold mb-3 text-indigo-700">اصول بنیادی روانشناسی شناختی</h3>
+                        <p class="mb-4">
+                            روانشناسی شناختی که در اواسط قرن بیستم به عنوان "انقلاب شناختی" ظهور کرد، بر مطالعه علمی فرآیندهای ذهنی درونی ("شناخت") تمرکز دارد. این رویکرد، برخلاف رفتارگرایی که ذهن را یک "جعبه سیاه" غیرقابل مطالعه می‌دانست، به بررسی نحوه پردازش اطلاعات توسط ذهن می‌پردازد.
+                        </p>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>ذهن به مثابه کامپیوتر:</strong> استفاده از استعاره کامپیوتر برای مدل‌سازی فرآیندهای ذهنی (ورودی -> پردازش -> خروجی).</li>
+                            <li><strong>فرآیندهای ذهنی قابل مطالعه علمی هستند:</strong> با استفاده از روش‌های آزمایشگاهی دقیق می‌توان فرآیندهای درونی مانند حافظه، توجه و تفکر را مطالعه کرد.</li>
+                            <li><strong>انسان به عنوان پردازشگر فعال اطلاعات:</strong> انسان‌ها به طور فعال اطلاعات محیطی را انتخاب، تفسیر و سازماندهی می‌کنند.</li>
+                        </ul>
+                    `
+                },
+                {
+                    title: "تاریخچه و سیر تحول",
+                    content: `
+                        <p class="mb-4">
+                            "انقلاب شناختی" در دهه‌های ۱۹۵۰ و ۱۹۶۰ در واکنش به محدودیت‌های رفتارگرایی رخ داد. چندین عامل در این تحول نقش داشتند:
+                        </p>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>نقد رفتارگرایی توسط چامسکی:</strong> در سال ۱۹۵۹، <strong>نوام چامسکی</strong> با نقد کتاب اسکینر در مورد زبان، استدلال کرد که رفتارگرایی نمی‌تواند پیچیدگی یادگیری زبان را توضیح دهد.</li>
+                            <li><strong>ظهور علوم کامپیوتر:</strong> توسعه کامپیوترها یک استعاره و ابزار قدرتمند برای مدل‌سازی ذهن فراهم کرد.</li>
+                            <li><strong>تحقیقات اولیه:</strong> کارهای اولیه توسط افرادی مانند <strong>ژان پیاژه</strong> در مورد رشد شناختی کودکان و <strong>جورج میلر</strong> در مورد ظرفیت حافظه کوتاه‌مدت ("عدد جادویی هفت")، نشان داد که فرآیندهای ذهنی قابل مطالعه هستند.</li>
+                            <li><strong>کتاب "روانشناسی شناختی" نایسر:</strong> انتشار این کتاب توسط <strong>اولریک نایسر</strong> در سال ۱۹۶۷، به طور رسمی این رشته را نام‌گذاری و تثبیت کرد.</li>
+                        </ul>
+                    `
+                },
+                {
+                    title: "شخصیت‌های کلیدی و بنیان‌گذاران",
+                    content: `
+                        <h3 class="text-xl font-bold mb-3 text-indigo-700">چهره‌های تأثیرگذار</h3>
+                        <div class="flex flex-col sm:flex-row items-start mb-6">
+                            <img src="https://placehold.co/150x180/EFEFEF/333333?text=Ulric+Neisser" alt="اولریک نایسر" class="float-left ml-4 mb-2 rounded-lg shadow-md w-32">
+                            <div class="flex-1">
+                                <ul class="list-disc pr-6 mt-2 space-y-2">
+                                    <li><strong>اولریک نایسر (۱۹۲۸-۲۰۱۲):</strong> پدر روانشناسی شناختی که با انتشار کتاب خود در سال ۱۹۶۷ این رشته را تعریف کرد.</li>
+                                    <li><strong>نوام چامسکی (متولد ۱۹۲۸):</strong> زبان‌شناسی که نظریه او در مورد "دستگاه یادگیری زبان" ذاتی، ضربه بزرگی به رفتارگرایی وارد کرد.</li>
+                                    <li><strong>جورج ا. میلر (۱۹۲۰-۲۰۱۲):</strong> به خاطر مقاله‌اش در مورد ظرفیت محدود حافظه کوتاه‌مدت (هفت، به علاوه یا منهای دو) مشهور است.</li>
+                                    <li><strong>ژان پیاژه (۱۸۹۶-۱۹۸۰):</strong> نظریه‌پرداز سوئیسی که مراحل رشد شناختی کودکان را توصیف کرد.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    `
+                },
+                {
+                    title: "مفاهیم، مدل‌ها و نظریه‌های بنیادی",
+                    content: `
+                        <h3 class="text-xl font-bold mb-3 text-indigo-700">مدل پردازش اطلاعات</h3>
+                        <p class="mb-4">
+                            این مدل، شناخت را به صورت یک سری مراحل متوالی توصیف می‌کند:
+                        </p>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>ورودی (Input):</strong> دریافت اطلاعات از محیط از طریق حواس.</li>
+                            <li><strong>پردازش (Processing):</strong> اطلاعات در ذهن کدگذاری، ذخیره و دستکاری می‌شوند.</li>
+                            <li><strong>خروجی (Output):</strong> تولید یک پاسخ یا رفتار.</li>
+                        </ul>
+                        <h3 class="mt-6 text-xl font-bold mb-3 text-indigo-700">حافظه</h3>
+                        <p>مدل‌های شناختی معمولاً حافظه را به سه بخش تقسیم می‌کنند:</p>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>حافظه حسی (Sensory Memory):</strong> ظرفیت بسیار بالا، مدت زمان بسیار کوتاه (کمتر از یک ثانیه).</li>
+                            <li><strong>حافظه کوتاه‌مدت/کاری (Short-term/Working Memory):</strong> ظرفیت محدود (حدود ۷ آیتم)، مدت زمان کوتاه (حدود ۲۰-۳۰ ثانیه)، مسئول پردازش فعال اطلاعات.</li>
+                            <li><strong>حافظه بلندمدت (Long-term Memory):</strong> ظرفیت و مدت زمان نامحدود، محل ذخیره دانش و تجربیات.</li>
+                        </ul>
+                        <h3 class="mt-6 text-xl font-bold mb-3 text-indigo-700">طرحواره (Schema)</h3>
+                        <p>طرحواره‌ها، چارچوب‌ها یا بسته‌های دانش سازمان‌یافته‌ای هستند که ما بر اساس تجربیات گذشته در مورد جهان می‌سازیم. آن‌ها به ما کمک می‌کنند تا اطلاعات جدید را به سرعت تفسیر کنیم، اما می‌توانند منجر به سوگیری و کلیشه‌سازی نیز شوند.</p>
+                    `
+                },
+                {
+                    title: "روش‌های تحقیق و درمانی",
+                    content: `
+                        <h3 class="text-xl font-bold mb-3 text-indigo-700">روش‌های تحقیق</h3>
+                        <p class="mb-4">
+                            روانشناسی شناختی به شدت بر <strong>روش‌های آزمایشگاهی کنترل‌شده</strong> تکیه دارد. محققان متغیرهای شناختی مانند زمان واکنش، دقت حافظه و الگوهای خطا را برای استنتاج در مورد فرآیندهای ذهنی زیربنایی اندازه‌گیری می‌کنند. مدل‌سازی کامپیوتری و اخیراً، علوم اعصاب شناختی (استفاده از fMRI و EEG) نیز روش‌های مهمی هستند.
+                        </p>
+                        <h3 class="mt-6 text-xl font-bold mb-3 text-indigo-700">درمان شناختی-رفتاری (CBT)</h3>
+                        <p class="mb-4">
+                            یکی از بزرگترین دستاوردهای کاربردی روانشناسی شناختی، توسعه <strong>درمان شناختی-رفتاری (Cognitive Behavioral Therapy - CBT)</strong> است. این رویکرد درمانی بر این اصل استوار است که افکار، احساسات و رفتارها به هم مرتبط هستند و تغییر الگوهای فکری ناکارآمد (تحریف‌های شناختی) می‌تواند به بهبود هیجانات و رفتارها منجر شود.
+                        </p>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>هدف:</strong> شناسایی و به چالش کشیدن افکار منفی و خودکار.</li>
+                            <li><strong>کاربرد:</strong> بسیار مؤثر برای درمان افسردگی، اختلالات اضطرابی، فوبیاها و بسیاری از مشکلات دیگر.</li>
+                        </ul>
+                    `
+                },
+                {
+                    title: "نقاط قوت، چالش‌ها و میراث",
+                    content: `
+                        <h3 class="text-xl font-bold mb-3 text-indigo-700">نقاط قوت روانشناسی شناختی</h3>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>رویکرد علمی:</strong> استفاده از روش‌های تحقیق عینی و کنترل‌شده.</li>
+                            <li><strong>کاربردهای عملی گسترده:</strong> تأثیر عظیم بر روانشناسی بالینی (CBT)، آموزش، هوش مصنوعی و حقوق.</li>
+                            <li><strong>ترکیب با سایر رشته‌ها:</strong> منجر به ظهور رشته‌های بین‌رشته‌ای مانند علوم اعصاب شناختی شده است.</li>
+                        </ul>
+
+                        <h3 class="mt-6 text-xl font-bold mb-3 text-indigo-700">چالش‌ها و محدودیت‌ها</h3>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>تقلیل‌گرایی ماشینی:</strong> استعاره کامپیوتر، پیچیدگی هیجانات، انگیزش و تأثیرات اجتماعی را نادیده می‌گیرد.</li>
+                            <li><strong>اعتبار بوم‌شناختی پایین (Low Ecological Validity):</strong> نتایج آزمایش‌های کنترل‌شده در محیط آزمایشگاه ممکن است به خوبی به دنیای واقعی تعمیم نیابند.</li>
+                            <li><strong>نادیده گرفتن عوامل بیولوژیکی:</strong> مدل‌های اولیه شناختی، نقش ساختار مغز و بیوشیمی را کمتر در نظر می‌گرفتند.</li>
+                        </ul>
+                        <h3 class="mt-6 text-xl font-bold mb-3 text-green-700">میراث و تأثیر امروزی</h3>
+                        <p>روانشناسی شناختی امروزه یکی از مسلط‌ترین رویکردها در روانشناسی است. ایده‌های آن تقریباً در تمام حوزه‌های روانشناسی نفوذ کرده و با ترکیب با رویکرد زیست‌شناختی، رشته قدرتمند <strong>علوم اعصاب شناختی (Cognitive Neuroscience)</strong> را به وجود آورده است که به دنبال درک پایه‌های مغزی شناخت است.</p>
+                    `
+                }
+            ]
+        },
+        {
+            title: "روانشناسی انسان‌گرا",
+            sections: [
+                {
+                    title: "مقدمه و اصول اساسی",
+                    content: `
+                        <h3 class="text-xl font-bold mb-3 text-indigo-700">اصول بنیادی روانشناسی انسان‌گرا</h3>
+                        <p class="mb-4">
+                            روانشناسی انسان‌گرا که در اواسط قرن بیستم به عنوان <strong>"نیروی سوم"</strong> (در مقابل روانکاوی و رفتارگرایی) ظهور کرد، بر جنبه‌های مثبت و منحصر به فرد تجربه انسانی تأکید دارد. این رویکرد، دیدگاه‌های جبرگرایانه دو مکتب دیگر را رد می‌کند و بر اراده آزاد، رشد شخصی و تمایل ذاتی انسان به سوی تحقق پتانسیل‌های خود یا <strong>خودشکوفایی (Self-Actualization)</strong> تمرکز می‌کند.
+                        </p>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>تجربه ذهنی (Subjective Experience):</strong> مهم‌ترین جنبه برای درک رفتار، درک دنیای درونی و دیدگاه منحصر به فرد هر شخص است.</li>
+                            <li><strong>اراده آزاد (Free Will):</strong> انسان‌ها موجوداتی فعال هستند که می‌توانند انتخاب کنند و سرنوشت خود را تعیین کنند.</li>
+                            <li><strong>خودشکوفایی:</strong> هر فردی یک تمایل ذاتی برای رسیدن به بالاترین سطح توانایی‌ها و پتانسیل خود دارد.</li>
+                            <li><strong>کل‌نگری (Holism):</strong> برای درک یک فرد، باید او را به عنوان یک کل یکپارچه در نظر گرفت.</li>
+                        </ul>
+                    `
+                },
+                {
+                    title: "تاریخچه و سیر تحول",
+                    content: `
+                        <p class="mb-4">
+                            روانشناسی انسان‌گرا در دهه‌های ۱۹۵۰ و ۱۹۶۰ در آمریکا، در فضایی از نارضایتی از دو دیدگاه غالب آن زمان شکل گرفت:
+                        </p>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>نقد روانکاوی:</strong> انسان‌گرایان دیدگاه بدبینانه و جبرگرایانه فروید را که بر غرایز تاریک و تعارضات ناهشیار تمرکز داشت، رد می‌کردند.</li>
+                            <li><strong>نقد رفتارگرایی:</strong> آن‌ها همچنین رویکرد ماشینی و تقلیل‌گرایانه رفتارگرایی را که انسان را به مجموعه‌ای از پاسخ‌های شرطی‌شده به محرک‌ها تقلیل می‌داد، نمی‌پذیرفتند.</li>
+                        </ul>
+                        <p class="mt-4">
+                            <strong>آبراهام مزلو</strong> و <strong>کارل راجرز</strong> به عنوان چهره‌های اصلی این جنبش، به دنبال ارائه یک تصویر کامل‌تر و مثبت‌تر از طبیعت انسان بودند. آن‌ها بر مطالعه افراد سالم و خلاق تمرکز کردند تا بفهمند چه چیزی باعث شکوفایی انسان می‌شود.
+                        </p>
+                    `
+                },
+                {
+                    title: "شخصیت‌های کلیدی و بنیان‌گذاران",
+                    content: `
+                        <h3 class="text-xl font-bold mb-3 text-indigo-700">بنیان‌گذاران اصلی</h3>
+                        <div class="flex flex-col sm:flex-row items-start mb-6">
+                            <img src="https://placehold.co/150x180/EFEFEF/333333?text=Abraham+Maslow" alt="آبراهام مزلو" class="float-left ml-4 mb-2 rounded-lg shadow-md w-32">
+                            <div class="flex-1">
+                                <ul class="list-disc pr-6 mt-2 space-y-2">
+                                    <li><strong>آبراهام مزلو (۱۹۰۸-۱۹۷۰):</strong> به خاطر نظریه "سلسله مراتب نیازها" و مفهوم "خودشکوفایی" مشهور است. او معتقد بود که پس از ارضای نیازهای اساسی (فیزیولوژیک، ایمنی، عشق و احترام)، انسان به سوی تحقق پتانسیل‌های خود حرکت می‌کند.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="flex flex-col sm:flex-row items-start mt-4">
+                            <img src="https://placehold.co/150x180/EFEFEF/333333?text=Carl+Rogers" alt="کارل راجرز" class="float-left ml-4 mb-2 rounded-lg shadow-md w-32">
+                            <div class="flex-1">
+                                <ul class="list-disc pr-6 mt-2 space-y-2">
+                                    <li><strong>کارل راجرز (۱۹۰۲-۱۹۸۷):</strong> بنیان‌گذار "درمان مراجع-محور" (Client-Centered Therapy). او بر اهمیت "نگرش مثبت بی‌قید و شرط"، "همدلی" و "همخوانی" در رابطه درمانی تأکید داشت.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    `
+                },
+                {
+                    title: "مفاهیم، مدل‌ها و نظریه‌های بنیادی",
+                    content: `
+                        <h3 class="text-xl font-bold mb-3 text-indigo-700">سلسله مراتب نیازهای مزلو (Maslow's Hierarchy of Needs)</h3>
+                        <p class="mb-4">
+                            مزلو نیازهای انسان را در یک هرم پنج سطحی سازماندهی کرد. برای رسیدن به سطوح بالاتر، نیازهای سطوح پایین‌تر باید ابتدا ارضا شوند:
+                        </p>
+                        <ol class="list-decimal pr-6 mt-2">
+                            <li><strong>نیازهای فیزیولوژیک:</strong> غذا، آب، خواب.</li>
+                            <li><strong>نیازهای ایمنی:</strong> امنیت، ثبات، سرپناه.</li>
+                            <li><strong>نیازهای عشق و تعلق:</strong> روابط دوستانه، صمیمیت، خانواده.</li>
+                            <li><strong>نیازهای احترام:</strong> عزت نفس، احترام از سوی دیگران، موفقیت.</li>
+                            <li><strong>خودشکوفایی:</strong> تحقق کامل پتانسیل‌های فردی، خلاقیت، معنویت.</li>
+                        </ol>
+                        <h3 class="mt-6 text-xl font-bold mb-3 text-indigo-700">مفاهیم کلیدی در نظریه راجرز</h3>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>خودپنداره (Self-Concept):</strong> مجموعه باورها و ادراکات ما درباره خودمان. این خودپنداره شامل "خود واقعی" (Real Self) و "خود آرمانی" (Ideal Self) است.</li>
+                            <li><strong>همخوانی (Congruence):</strong> زمانی که بین خود واقعی و خود آرمانی هماهنگی وجود دارد، فرد سلامت روانی را تجربه می‌کند. ناهماهنگی منجر به اضطراب می‌شود.</li>
+                            <li><strong>نگرش مثبت بی‌قید و شرط (Unconditional Positive Regard):</strong> پذیرش و عشق کامل به یک فرد، بدون توجه به رفتار او. راجرز معتقد بود این شرط برای رشد سالم ضروری است.</li>
+                        </ul>
+                    `
+                },
+                {
+                    title: "روش‌های تحقیق و درمانی",
+                    content: `
+                        <h3 class="text-xl font-bold mb-3 text-indigo-700">روش‌های تحقیق</h3>
+                        <p class="mb-4">
+                            انسان‌گرایان روش‌های کمی و آزمایشگاهی را که تجربه انسانی را به اعداد تقلیل می‌دهند، رد می‌کردند. آن‌ها از <strong>روش‌های کیفی</strong> مانند:
+                        </p>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li>مطالعات موردی (Case Studies)</li>
+                            <li>مصاحبه‌های باز و بدون ساختار</li>
+                            <li>تحلیل محتوای خاطرات و نامه‌ها</li>
+                        </ul>
+                        <h3 class="mt-6 text-xl font-bold mb-3 text-indigo-700">درمان مراجع-محور (Client-Centered Therapy)</h3>
+                        <p class="mb-4">
+                            این رویکرد درمانی که توسط راجرز توسعه یافت، یک رابطه درمانی غیردستوری و برابر را ترویج می‌کند. درمانگر به جای "متخصص"، نقش یک تسهیل‌گر را دارد که با فراهم کردن سه شرط اصلی، به مراجع (نه "بیمار") کمک می‌کند تا راه‌حل‌های خود را پیدا کند:
+                        </p>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>همدلی (Empathy):</strong> توانایی درک دنیای درونی مراجع از دیدگاه او.</li>
+                            <li><strong>همخوانی (Congruence):</strong> درمانگر در رابطه درمانی، صادق و اصیل است.</li>
+                            <li><strong>نگرش مثبت بی‌قید و شرط (Unconditional Positive Regard):</strong> پذیرش کامل مراجع.</li>
+                        </ul>
+                    `
+                },
+                {
+                    title: "نقاط قوت، چالش‌ها و میراث",
+                    content: `
+                        <h3 class="text-xl font-bold mb-3 text-indigo-700">نقاط قوت روانشناسی انسان‌گرا</h3>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li>ارائه دیدگاهی مثبت و خوش‌بینانه به طبیعت انسان.</li>
+                            <li>تأکید بر اهمیت تجربه ذهنی و منحصر به فرد بودن هر شخص.</li>
+                            <li>تأثیر عمیق بر практику روان‌درمانی و مشاوره.</li>
+                            <li>توجه به مفاهیمی مانند خلاقیت، اراده آزاد و رشد شخصی که توسط مکاتب دیگر نادیده گرفته شده بود.</li>
+                        </ul>
+
+                        <h3 class="mt-6 text-xl font-bold mb-3 text-indigo-700">چالش‌ها و محدودیت‌ها</h3>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>فقدان شواهد تجربی:</strong> بسیاری از مفاهیم آن (مانند خودشکوفایی) انتزاعی و به سختی قابل اندازه‌گیری و آزمایش علمی هستند.</li>
+                            <li><strong>ذهنیت‌گرایی بیش از حد:</strong> تکیه بر گزارش‌های ذهنی، عینیت را کاهش می‌دهد.</li>
+                            <li><strong>خوش‌بینی غیرواقع‌گرایانه:</strong> منتقدان معتقدند این رویکرد، جنبه‌های تاریک‌تر و شرورانه طبیعت انسان را نادیده می‌گیرد.</li>
+                        </ul>
+                        <h3 class="mt-6 text-xl font-bold mb-3 text-green-700">میراث و تأثیر امروزی</h3>
+                        <p>روانشناسی انسان‌گرا تأثیر عمیقی بر روش‌های درمانی و مشاوره داشته است. مهم‌تر از آن، این مکتب الهام‌بخش <strong>روانشناسی مثبت‌گرا (Positive Psychology)</strong> بود که امروزه به مطالعه علمی شادی، بهزیستی و شکوفایی انسان می‌پردازد.</p>
+                    `
+                }
+            ]
+        },
+        {
+            title: "رویکرد زیست‌شناختی",
+            sections: [
+                {
+                    title: "مقدمه و اصول اساسی",
+                    content: `
+                        <h3 class="text-xl font-bold mb-3 text-indigo-700">اصول بنیادی رویکرد زیست‌شناختی</h3>
+                        <p class="mb-4">
+                            رویکرد زیست‌شناختی (که به آن روانشناسی فیزیولوژیک یا علوم اعصاب رفتاری نیز گفته می‌شود) به دنبال تبیین رفتار و فرآیندهای ذهنی بر اساس پایه‌های بیولوژیکی آن‌هاست. این دیدگاه معتقد است که تمام افکار، احساسات و رفتارهای ما در نهایت ریشه در فعالیت‌های سیستم عصبی، ژنتیک و سیستم غدد درون‌ریز دارند.
+                        </p>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>رفتار ریشه در بیولوژی دارد:</strong> تمام پدیده‌های روانشناختی یک پایه فیزیولوژیکی دارند.</li>
+                            <li><strong>نقش ژنتیک:</strong> بسیاری از رفتارها و استعدادها تحت تأثیر وراثت ژنتیکی هستند.</li>
+                            <li><strong>تأثیر تکامل:</strong> مغز و رفتار انسان توسط فرآیندهای تکاملی شکل گرفته‌اند تا به بقا و تولید مثل کمک کنند.</li>
+                            <li><strong>تقلیل‌گرایی (Reductionism):</strong> این رویکرد اغلب سعی می‌کند رفتارهای پیچیده را به فرآیندهای بیولوژیکی ساده‌تر تجزیه کند.</li>
+                        </ul>
+                    `
+                },
+                {
+                    title: "تاریخچه و سیر تحول",
+                    content: `
+                        <p class="mb-4">
+                           ایده ارتباط بین ذهن و بدن ریشه‌های باستانی دارد (مثلاً در کارهای بقراط و دکارت)، اما رویکرد علمی مدرن با پیشرفت‌های تکنولوژیک در قرن ۱۹ و ۲۰ شتاب گرفت.
+                        </p>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>مطالعات اولیه مغز:</strong> در قرن نوزدهم، دانشمندانی مانند <strong>پل بروکا</strong> و <strong>کارل ورنیکه</strong> با مطالعه بیمارانی که دچار آسیب مغزی شده بودند، نواحی خاصی از مغز را به عملکردهای زبانی مرتبط کردند.</li>
+                            <li><strong>روانشناسی فیزیولوژیک:</strong> کارهای <strong>ویلهلم وونت</strong> نیز شامل جنبه‌های فیزیولوژیک بود. <strong>کارل لشلی</strong> در اواسط قرن بیستم به دنبال یافتن "رد حافظه" (Engram) در مغز بود.</li>
+                            <li><strong>انقلاب تکنولوژیک:</strong> توسعه تکنیک‌های تصویربرداری مغزی مانند <strong>PET</strong> (دهه ۱۹۷۰) و <strong>fMRI</strong> (دهه ۱۹۹۰) انقلابی در توانایی ما برای مطالعه مغز زنده و فعال ایجاد کرد و منجر به ظهور رشته <strong>علوم اعصاب شناختی</strong> شد.</li>
+                        </ul>
+                    `
+                },
+                {
+                    title: "شخصیت‌های کلیدی و حوزه‌های تحقیق",
+                    content: `
+                        <h3 class="text-xl font-bold mb-3 text-indigo-700">چهره‌های تأثیرگذار و حوزه‌ها</h3>
+                        <p class="mb-4">این رویکرد بیش از آنکه بنیان‌گذاران مشخصی داشته باشد، حاصل کار هزاران محقق در حوزه‌های مختلف است:</p>
+                        <div class="flex flex-col sm:flex-row items-start mb-6">
+                            <img src="https://placehold.co/150x180/EFEFEF/333333?text=Donald+Hebb" alt="دونالد هب" class="float-left ml-4 mb-2 rounded-lg shadow-md w-32">
+                            <div class="flex-1">
+                                <ul class="list-disc pr-6 mt-2 space-y-2">
+                                    <li><strong>دونالد هب (۱۹۰۴-۱۹۸۵):</strong> نظریه او در مورد یادگیری هبی ("نورون‌هایی که با هم شلیک می‌کنند، با هم سیم‌کشی می‌شوند") پایه‌های علوم اعصاب مدرن را بنا نهاد.</li>
+                                    <li><strong>راجر اسپری (۱۹۱۳-۱۹۹۴):</strong> تحقیقات او بر روی بیماران "مغز دوپاره" (Split-Brain) به درک ما از تخصص نیمکره‌های مغز کمک کرد و جایزه نوبل را برایش به ارمغان آورد.</li>
+                                    <li><strong>اریک کندل (متولد ۱۹۲۹):</strong> با مطالعه حلزون دریایی، پایه‌های مولکولی حافظه را کشف کرد و جایزه نوبل گرفت.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    `
+                },
+                {
+                    title: "مفاهیم، مدل‌ها و نظریه‌های بنیادی",
+                    content: `
+                        <h3 class="text-xl font-bold mb-3 text-indigo-700">سیستم عصبی</h3>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>نورون‌ها:</strong> واحدهای اصلی پردازش اطلاعات در مغز.</li>
+                            <li><strong>انتقال‌دهنده‌های عصبی (Neurotransmitters):</strong> مواد شیمیایی که پیام‌ها را بین نورون‌ها منتقل می‌کنند. عدم تعادل در آن‌ها با اختلالات روانی مرتبط است (مثلاً سروتونین و افسردگی، دوپامین و اسکیزوفرنی).</li>
+                            <li><strong>تخصص نیمکره‌ها:</strong> نیمکره چپ مغز معمولاً مسئول زبان و منطق، و نیمکره راست مسئول پردازش فضایی و هیجانات است.</li>
+                        </ul>
+                        <h3 class="mt-6 text-xl font-bold mb-3 text-indigo-700">سیستم غدد درون‌ریز</h3>
+                        <p>این سیستم از طریق ترشح <strong>هورمون‌ها</strong> (مانند آدرنالین، کورتیزول و تستوسترون) بر رفتار و هیجانات تأثیر می‌گذارد.</p>
+                        <h3 class="mt-6 text-xl font-bold mb-3 text-indigo-700">ژنتیک رفتاری</h3>
+                        <p>این حوزه به بررسی تأثیر ژن‌ها بر رفتار می‌پردازد. <strong>مطالعات دوقلوها</strong> (مقایسه دوقلوهای همسان و ناهمسان) و <strong>مطالعات فرزندخواندگی</strong> روش‌های اصلی برای تخمین <strong>وراثت‌پذیری (Heritability)</strong> یک صفت هستند.</p>
+                    `
+                },
+                {
+                    title: "روش‌های تحقیق و درمانی",
+                    content: `
+                        <h3 class="text-xl font-bold mb-3 text-indigo-700">روش‌های تحقیق</h3>
+                        <p class="mb-4">
+                            این رویکرد از روش‌های بسیار دقیق و علمی استفاده می‌کند:
+                        </p>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>تصویربرداری مغزی:</strong>
+                                <ul class="list-disc pr-6 mt-2">
+                                    <li><strong>fMRI (تصویرسازی تشدید مغناطیسی کارکردی):</strong> فعالیت مغز را با اندازه‌گیری جریان خون اندازه‌گیری می‌کند.</li>
+                                    <li><strong>EEG (الکتروانسفالوگرافی):</strong> فعالیت الکتریکی مغز را از طریق الکترودهای روی پوست سر ثبت می‌کند.</li>
+                                </ul>
+                            </li>
+                            <li><strong>مطالعات حیوانی:</strong> استفاده از مدل‌های حیوانی برای بررسی عملکرد مغز به روش‌هایی که روی انسان امکان‌پذیر نیست (مانند ایجاد ضایعه یا دستکاری ژنتیکی).</li>
+                            <li><strong>مطالعات ژنتیکی:</strong> تحلیل DNA و مطالعات دوقلوها.</li>
+                        </ul>
+                        <h3 class="mt-6 text-xl font-bold mb-3 text-indigo-700">روش‌های درمانی</h3>
+                        <p class="mb-4">
+                            درمان‌های مبتنی بر این رویکرد عمدتاً بیولوژیکی هستند:
+                        </p>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>دارودرمانی (Psychopharmacology):</strong> استفاده از داروها برای اصلاح عدم تعادل انتقال‌دهنده‌های عصبی (مانند داروهای ضدافسردگی SSRI).</li>
+                            <li><strong>تحریک مغزی:</strong> روش‌هایی مانند تحریک مغناطیسی ترانس‌کرانیال (TMS) یا درمان با تشنج الکتریکی (ECT) برای موارد مقاوم به درمان.</li>
+                        </ul>
+                    `
+                },
+                {
+                    title: "نقاط قوت، چالش‌ها و میراث",
+                    content: `
+                        <h3 class="text-xl font-bold mb-3 text-indigo-700">نقاط قوت رویکرد زیست‌شناختی</h3>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>بسیار علمی و عینی:</strong> استفاده از روش‌های تحقیق دقیق و قابل تکرار.</li>
+                            <li><strong>ارائه تبیین‌های قدرتمند:</strong> درک ما از پدیده‌هایی مانند حافظه، هیجان و اختلالات روانی را متحول کرده است.</li>
+                            <li><strong>درمان‌های مؤثر:</strong> منجر به توسعه داروهای مؤثری برای درمان بسیاری از اختلالات روانی شده است.</li>
+                        </ul>
+
+                        <h3 class="mt-6 text-xl font-bold mb-3 text-indigo-700">چالش‌ها و محدودیت‌ها</h3>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>تقلیل‌گرایی (Reductionism):</strong> توضیح رفتارهای پیچیده تنها بر اساس عناصر بیولوژیکی، نقش عوامل روانشناختی و اجتماعی را نادیده می‌گیرد.</li>
+                            <li><strong>جبرگرایی بیولوژیکی:</strong> این دیدگاه ممکن است نقش اراده آزاد را کم‌اهمیت جلوه دهد (مثلاً "رفتار من به خاطر ژن‌هایم است").</li>
+                            <li><strong>مسائل همبستگی و علیت:</strong> بسیاری از تحقیقات (مانند تصویربرداری مغزی) ماهیت همبستگی دارند و نمی‌توانند به طور قطعی رابطه علت و معلولی را ثابت کنند.</li>
+                        </ul>
+                        <h3 class="mt-6 text-xl font-bold mb-3 text-green-700">میراث و تأثیر امروزی</h3>
+                        <p>رویکرد زیست‌شناختی و به ویژه علوم اعصاب، یکی از پرشتاب‌ترین و تأثیرگذارترین حوزه‌های روانشناسی امروز است. این رویکرد نه تنها به خودی خود یک حوزه مهم است، بلکه با سایر رویکردها (مانند شناختی و اجتماعی) ترکیب شده و به درک عمیق‌تری از تعامل بین مغز، ذهن و محیط کمک می‌کند.</p>
+                    `
+                }
+            ]
+        },
+        {
+            title: "رویکرد تکاملی",
+            sections: [
+                {
+                    title: "مقدمه و اصول اساسی",
+                    content: `
+                        <h3 class="text-xl font-bold mb-3 text-indigo-700">اصول بنیادی روانشناسی تکاملی</h3>
+                        <p class="mb-4">
+                            روانشناسی تکاملی به دنبال تبیین رفتار و فرآیندهای ذهنی انسان به عنوان محصول نهایی <strong>انتخاب طبیعی</strong> است. این رویکرد معتقد است که ذهن انسان مجموعه‌ای از سازگاری‌های روانشناختی است که برای حل مشکلات تکرارشونده‌ای که نیاکان ما در محیط شکارچی-گردآورنده با آن روبرو بودند، تکامل یافته‌اند.
+                        </p>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>مغز محصول تکامل است:</strong> مغز یک ارگان فیزیکی است که عملکرد آن توسط انتخاب طبیعی شکل گرفته است.</li>
+                            <li><strong>سازگاری‌های روانشناختی:</strong> ذهن ما از مکانیزم‌های پردازش اطلاعات خاصی تشکیل شده که برای حل مشکلات انطباقی (مانند یافتن غذا، انتخاب جفت، اجتناب از خطر) طراحی شده‌اند.</li>
+                            <li><strong>محیط نیاکانی (EEA):</strong> رفتارهای امروزی ما اغلب بازتابی از فشارهای انتخابی در "محیط سازگاری تکاملی" است، نه لزوماً محیط مدرن.</li>
+                            <li><strong>روانشناسی جهانی:</strong> این رویکرد بر جنبه‌های مشترک و جهانی طبیعت انسان که در تمام فرهنگ‌ها یافت می‌شود، تأکید دارد.</li>
+                        </ul>
+                    `
+                },
+                {
+                    title: "تاریخچه و سیر تحول",
+                    content: `
+                        <p class="mb-4">
+                           ریشه‌های این رویکرد به نظریه تکامل <strong>چارلز داروین</strong> در قرن نوزدهم بازمی‌گردد. داروین خود پیش‌بینی کرده بود که روانشناسی در آینده بر پایه جدیدی استوار خواهد شد. با این حال، روانشناسی تکاملی به عنوان یک رشته رسمی، عمدتاً در اواخر قرن بیستم شکل گرفت.
+                        </p>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>زیست‌شناسی اجتماعی (Sociobiology):</strong> در دهه ۱۹۷۰، کتاب <strong>ای. او. ویلسون</strong> با عنوان "زیست‌شناسی اجتماعی" بحث‌های زیادی را برانگیخت. او استدلال کرد که رفتار اجتماعی حیوانات و انسان‌ها را می‌توان بر اساس اصول تکاملی توضیح داد.</li>
+                            <li><strong>ظهور روانشناسی تکاملی:</strong> در اواخر دهه ۱۹۸۰ و اوایل دهه ۱۹۹۰، روانشناسانی مانند <strong>لدا کازمیدس</strong>، <strong>جان توبی</strong> و <strong>دیوید باس</strong> این رشته را با تمرکز بیشتر بر مکانیزم‌های روانشناختی، به طور رسمی پایه‌گذاری کردند. کتاب <strong>"ذهن سازگار شده" (The Adapted Mind)</strong> در سال ۱۹۹۲ به عنوان مانیفست این رشته شناخته می‌شود.</li>
+                        </ul>
+                    `
+                },
+                {
+                    title: "شخصیت‌های کلیدی و حوزه‌های تحقیق",
+                    content: `
+                        <h3 class="text-xl font-bold mb-3 text-indigo-700">چهره‌های تأثیرگذار</h3>
+                        <div class="flex flex-col sm:flex-row items-start mb-6">
+                            <img src="https://placehold.co/150x180/EFEFEF/333333?text=David+Buss" alt="دیوید باس" class="float-left ml-4 mb-2 rounded-lg shadow-md w-32">
+                            <div class="flex-1">
+                                <ul class="list-disc pr-6 mt-2 space-y-2">
+                                    <li><strong>چارلز داروین (۱۸۰۹-۱۸۸۲):</strong> بنیان‌گذار نظریه تکامل از طریق انتخاب طبیعی.</li>
+                                    <li><strong>دیوید باس (متولد ۱۹۵۳):</strong> به خاطر تحقیقات گسترده‌اش در مورد استراتژی‌های جفت‌یابی انسان در فرهنگ‌های مختلف مشهور است.</li>
+                                    <li><strong>لدا کازمیدس و جان توبی:</strong> از بنیان‌گذاران اصلی این رشته که بر مفهوم "مکانیزم‌های روانشناختی سازگار شده" تأکید کردند.</li>
+                                    <li><strong>استیون پینکر (متولد ۱۹۵۴):</strong> نویسنده کتاب‌های پرفروشی مانند "غریزه زبان" و "لوح سپید" که ایده‌های تکاملی را برای مخاطب عام توضیح داده است.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    `
+                },
+                {
+                    title: "مفاهیم، مدل‌ها و نظریه‌های بنیادی",
+                    content: `
+                        <h3 class="text-xl font-bold mb-3 text-indigo-700">حوزه‌های اصلی تحقیق</h3>
+                        <p>روانشناسی تکاملی سعی می‌کند طیف وسیعی از رفتارهای انسانی را توضیح دهد:</p>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>جفت‌یابی و روابط جنسی:</strong> چرا زنان و مردان در انتخاب جفت معیارهای متفاوتی دارند؟ (مثلاً تأکید مردان بر جوانی و جذابیت فیزیکی، و تأکید زنان بر منابع و موقعیت اجتماعی).</li>
+                            <li><strong>نوع‌دوستی و همکاری (Altruism & Cooperation):</strong> چرا به دیگران کمک می‌کنیم؟
+                                <ul class="list-disc pr-6 mt-2">
+                                    <li><strong>انتخاب خویشاوندی (Kin Selection):</strong> ما به احتمال زیاد به بستگان ژنتیکی خود کمک می‌کنیم تا بقای ژن‌های مشترکمان را تضمین کنیم.</li>
+                                    <li><strong>نوع‌دوستی متقابل (Reciprocal Altruism):</strong> "من پشت تو را می‌خارانم، اگر تو هم پشت من را بخارانی."</li>
+                                </ul>
+                            </li>
+                            <li><strong>هیجانات:</strong> هیجانات (مانند ترس، خشم، حسادت) به عنوان سیگنال‌های انطباقی برای مواجهه با موقعیت‌های مختلف تکامل یافته‌اند. ترس از مار و عنکبوت (خطرات نیاکانی) شایع‌تر از ترس از اتومبیل و پریز برق (خطرات مدرن) است.</li>
+                            <li><strong>والدگری:</strong> تفاوت‌های سرمایه‌گذاری والدین بین پدر و مادر و تعارضات والد-فرزند.</li>
+                        </ul>
+                    `
+                },
+                {
+                    title: "روش‌های تحقیق",
+                    content: `
+                        <p class="mb-4">
+                            از آنجایی که نمی‌توان تکامل را در آزمایشگاه بازسازی کرد، روانشناسان تکاملی از روش‌های غیرمستقیم برای آزمون فرضیه‌های خود استفاده می‌کنند:
+                        </p>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>تحقیقات میان‌فرهنگی (Cross-Cultural Research):</strong> اگر یک رفتار یا ترجیح در تمام فرهنگ‌ها یافت شود، احتمالاً یک پایه بیولوژیکی و تکاملی دارد.</li>
+                            <li><strong>روش‌های تطبیقی (Comparative Methods):</strong> مقایسه رفتار انسان با گونه‌های دیگر، به ویژه نخستی‌ها.</li>
+                            <li><strong>مطالعات باستان‌شناسی و دیرینه‌شناسی:</strong> بررسی شواهد فسیلی و باستان‌شناختی برای درک شرایط زندگی نیاکان.</li>
+                            <li><strong>روش‌های روانشناسی سنتی:</strong> استفاده از پرسشنامه‌ها و آزمایش‌ها برای آزمون پیش‌بینی‌های خاص (مثلاً در مورد حسادت یا انتخاب جفت).</li>
+                        </ul>
+                    `
+                },
+                {
+                    title: "نقاط قوت، چالش‌ها و میراث",
+                    content: `
+                        <h3 class="text-xl font-bold mb-3 text-indigo-700">نقاط قوت رویکرد تکاملی</h3>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>قدرت تبیینی بالا:</strong> یک چارچوب نظری قدرتمند برای یکپارچه‌سازی یافته‌های مختلف در روانشناسی ارائه می‌دهد.</li>
+                            <li><strong>تولید فرضیه‌های جدید:</strong> منجر به طرح سوالات و فرضیه‌های جدیدی در مورد رفتار انسان شده است.</li>
+                            <li><strong>ارتباط با سایر رشته‌ها:</strong> روانشناسی را به علوم زیستی، ژنتیک و انسان‌شناسی پیوند می‌زند.</li>
+                        </ul>
+
+                        <h3 class="mt-6 text-xl font-bold mb-3 text-indigo-700">چالش‌ها و محدودیت‌ها</h3>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>داستان‌سرایی پس از وقوع (Post-Hoc Storytelling):</strong> منتقدان معتقدند که ساختن یک داستان تکاملی برای توضیح یک رفتار پس از مشاهده آن، آسان است، اما آزمون آن دشوار است.</li>
+                            <li><strong>جبرگرایی ژنتیکی:</strong> این رویکرد ممکن است نقش یادگیری، فرهنگ و انتخاب فردی را کم‌اهمیت جلوه دهد.</li>
+                            <li><strong>تقلیل‌گرایی:</strong> نادیده گرفتن پیچیدگی‌های رفتار انسان و تأثیرات محیط مدرن.</li>
+                            <li><strong>کمبود شواهد قطعی:</strong> دانش ما در مورد محیط دقیق زندگی نیاکان محدود است.</li>
+                        </ul>
+                        <h3 class="mt-6 text-xl font-bold mb-3 text-green-700">میراث و تأثیر امروزی</h3>
+                        <p>رویکرد تکاملی یک دیدگاه تأثیرگذار و گاهی بحث‌برانگیز در روانشناسی مدرن است. این رویکرد به ویژه در حوزه‌های روانشناسی اجتماعی، شخصیت و شناختی نفوذ کرده و به ما کمک می‌کند تا بفهمیم چرا برخی الگوهای رفتاری جهانی در بین انسان‌ها وجود دارد.</p>
+                    `
+                }
+            ]
+        },
+        {
+            title: "رویکرد اجتماعی-فرهنگی",
+            sections: [
+                {
+                    title: "مقدمه و اصول اساسی",
+                    content: `
+                        <h3 class="text-xl font-bold mb-3 text-indigo-700">اصول بنیادی رویکرد اجتماعی-فرهنگی</h3>
+                        <p class="mb-4">
+                            رویکرد اجتماعی-فرهنگی بر این ایده تمرکز دارد که رفتار و فرآیندهای ذهنی انسان به شدت تحت تأثیر محیط اجتماعی و زمینه فرهنگی او قرار دارد. این دیدگاه، فرد را از خلاء جدا نمی‌کند و معتقد است که برای درک کامل رفتار، باید به هنجارها، ارزش‌ها، انتظارات و تعاملات اجتماعی که فرد را احاطه کرده‌اند، توجه کرد.
+                        </p>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>رفتار در زمینه اجتماعی شکل می‌گیرد:</strong> رفتار یک فرد در حضور دیگران متفاوت از زمانی است که تنهاست.</li>
+                            <li><strong>فرهنگ بر شناخت و رفتار تأثیر می‌گذارد:</strong> فرهنگ، که شامل باورها، ارزش‌ها، سنت‌ها و زبان مشترک یک گروه است، نحوه تفکر، احساس و عمل ما را شکل می‌دهد.</li>
+                            <li><strong>تأکید بر تفاوت‌ها و شباهت‌های فرهنگی:</strong> این رویکرد هم به بررسی تفاوت‌های رفتاری بین فرهنگ‌ها و هم به یافتن اصول روانشناختی جهانی می‌پردازد.</li>
+                        </ul>
+                    `
+                },
+                {
+                    title: "تاریخچه و سیر تحول",
+                    content: `
+                        <p class="mb-4">
+                           این رویکرد ریشه‌های متعددی در روانشناسی اجتماعی، جامعه‌شناسی و انسان‌شناسی دارد.
+                        </p>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>روانشناسی اجتماعی اولیه:</strong> در اوایل قرن بیستم، روانشناسانی مانند <strong>کورت لوین</strong> تأکید کردند که رفتار تابعی از تعامل بین فرد و محیط اوست (B = f(P, E)). آزمایش‌های کلاسیک <strong>سلیمان اش</strong> در مورد همرنگی (دهه ۱۹۵۰) و <strong>استنلی میلگرام</strong> در مورد اطاعت (دهه ۱۹۶۰) قدرت موقعیت اجتماعی را به وضوح نشان داد.</li>
+                            <li><strong>نظریه ویگوتسکی:</strong> نظریه رشد اجتماعی-فرهنگی <strong>لو ویگوتسکی</strong> (که در دهه ۱۹۲۰ و ۱۹۳۰ توسعه یافت اما در غرب دیرتر شناخته شد) بر نقش محوری تعاملات اجتماعی و فرهنگ در رشد شناختی تأکید داشت.</li>
+                            <li><strong>روانشناسی میان‌فرهنگی:</strong> از اواسط قرن بیستم به بعد، با افزایش ارتباطات جهانی، علاقه به مطالعه تفاوت‌های فرهنگی در روانشناسی افزایش یافت و این حوزه به یک رشته رسمی تبدیل شد.</li>
+                        </ul>
+                    `
+                },
+                {
+                    title: "شخصیت‌های کلیدی و بنیان‌گذاران",
+                    content: `
+                        <h3 class="text-xl font-bold mb-3 text-indigo-700">چهره‌های تأثیرگذار</h3>
+                        <div class="flex flex-col sm:flex-row items-start mb-6">
+                            <img src="https://placehold.co/150x180/EFEFEF/333333?text=Lev+Vygotsky" alt="لو ویگوتسکی" class="float-left ml-4 mb-2 rounded-lg shadow-md w-32">
+                            <div class="flex-1">
+                                <ul class="list-disc pr-6 mt-2 space-y-2">
+                                    <li><strong>لو ویگوتسکی (۱۸۹۶-۱۹۳۴):</strong> روانشناس روسی که بر نقش ابزارهای فرهنگی (مانند زبان) و تعامل اجتماعی در رشد ذهن تأکید کرد.</li>
+                                    <li><strong>کورت لوین (۱۸۹۰-۱۹۴۷):</strong> اغلب به عنوان پدر روانشناسی اجتماعی مدرن شناخته می‌شود.</li>
+                                    <li><strong>سلیمان اش (۱۹۰۷-۱۹۹۶):</strong> به خاطر آزمایش‌هایش در مورد قدرت همرنگی با گروه مشهور است.</li>
+                                    <li><strong>استنلی میلگرام (۱۹۳۳-۱۹۸۴):</strong> آزمایش‌های بحث‌برانگیز او در مورد اطاعت از مرجعیت، درک ما از رفتار انسان در موقعیت‌های اجتماعی را متحول کرد.</li>
+                                    <li><strong>فیلیپ زیمباردو (متولد ۱۹۳۳):</strong> به خاطر "آزمایش زندان استنفورد" که قدرت نقش‌های اجتماعی را نشان داد، شناخته می‌شود.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    `
+                },
+                {
+                    title: "مفاهیم، مدل‌ها و نظریه‌های بنیادی",
+                    content: `
+                        <h3 class="text-xl font-bold mb-3 text-indigo-700">تأثیرات اجتماعی</h3>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>همرنگی (Conformity):</strong> تغییر رفتار یا باورهای فرد برای هماهنگ شدن با فشار گروه.</li>
+                            <li><strong>اطاعت (Obedience):</strong> پیروی از دستورات یک مرجع قدرت.</li>
+                            <li><strong>نقش‌های اجتماعی (Social Roles):</strong> انتظارات مشترک در یک گروه در مورد اینکه افراد با موقعیت‌های خاص چگونه باید رفتار کنند.</li>
+                        </ul>
+                        <h3 class="mt-6 text-xl font-bold mb-3 text-indigo-700">تأثیرات فرهنگی</h3>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>فردگرایی در مقابل جمع‌گرایی (Individualism vs. Collectivism):</strong>
+                                <ul class="list-disc pr-6 mt-2">
+                                    <li><strong>فرهنگ‌های فردگرا (مانند آمریکای شمالی و اروپای غربی):</strong> بر استقلال، موفقیت شخصی و حقوق فردی تأکید دارند.</li>
+                                    <li><strong>فرهنگ‌های جمع‌گرا (مانند بسیاری از کشورهای آسیایی و آمریکای لاتین):</strong> بر وابستگی متقابل، هماهنگی گروهی و وفاداری به خانواده و گروه تأکید دارند.</li>
+                                </ul>
+                            </li>
+                            <li><strong>هنجارهای فرهنگی (Cultural Norms):</strong> قوانین نانوشته در مورد رفتارهای قابل قبول در یک فرهنگ خاص.</li>
+                        </ul>
+                        <h3 class="mt-6 text-xl font-bold mb-3 text-indigo-700">نظریه ویگوتسکی</h3>
+                        <p><strong>منطقه رشد تقریبی (Zone of Proximal Development - ZPD):</strong> فاصله بین آنچه یک کودک به تنهایی می‌تواند انجام دهد و آنچه با راهنمایی یک فرد ماهرتر (بزرگسال یا همسال) می‌تواند انجام دهد. یادگیری مؤثر در این منطقه رخ می‌دهد.</p>
+                    `
+                },
+                {
+                    title: "روش‌های تحقیق و درمانی",
+                    content: `
+                        <h3 class="text-xl font-bold mb-3 text-indigo-700">روش‌های تحقیق</h3>
+                        <p class="mb-4">
+                            این رویکرد از روش‌های متنوعی استفاده می‌کند:
+                        </p>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>تحقیقات میان‌فرهنگی (Cross-Cultural Research):</strong> مقایسه رفتارها و فرآیندهای ذهنی در فرهنگ‌های مختلف برای شناسایی تفاوت‌ها و شباهت‌ها.</li>
+                            <li><strong>آزمایش‌های میدانی (Field Experiments):</strong> انجام آزمایش در محیط‌های طبیعی برای افزایش اعتبار بوم‌شناختی (مانند آزمایش‌های میلگرام).</li>
+                            <li><strong>مشاهده مشارکتی (Participant Observation):</strong> محقق برای درک عمیق یک گروه یا فرهنگ، در آن زندگی می‌کند.</li>
+                        </ul>
+                        <h3 class="mt-6 text-xl font-bold mb-3 text-indigo-700">کاربردهای درمانی</h3>
+                        <p class="mb-4">
+                            این رویکرد بر درمان‌هایی تأکید دارد که زمینه اجتماعی فرد را در نظر می‌گیرند:
+                        </p>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>خانواده درمانی (Family Therapy):</strong> به جای تمرکز بر یک "بیمار"، کل سیستم خانواده را به عنوان واحد درمان در نظر می‌گیرد.</li>
+                            <li><strong>گروه درمانی (Group Therapy):</strong> استفاده از پویایی‌های گروه برای حمایت و ایجاد تغییر در افراد.</li>
+                            <li><strong>روانشناسی اجتماع‌نگر (Community Psychology):</strong> تمرکز بر پیشگیری از مشکلات روانی از طریق بهبود محیط‌های اجتماعی (مانند مدارس و محله‌ها).</li>
+                        </ul>
+                    `
+                },
+                {
+                    title: "نقاط قوت، چالش‌ها و میراث",
+                    content: `
+                        <h3 class="text-xl font-bold mb-3 text-indigo-700">نقاط قوت رویکرد اجتماعی-فرهنگی</h3>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>افزایش درک بین‌فرهنگی:</strong> به ما کمک می‌کند تا بفهمیم که رفتار "عادی" در یک فرهنگ ممکن است در فرهنگ دیگر متفاوت باشد و از قوم‌مداری (Ethnocentrism) جلوگیری می‌کند.</li>
+                            <li><strong>تکمیل سایر رویکردها:</strong> نقش مهم عوامل محیطی و اجتماعی را که توسط رویکردهای دیگر (مانند بیولوژیکی) نادیده گرفته می‌شود، برجسته می‌کند.</li>
+                            <li><strong>کاربردهای عملی:</strong> در حوزه‌هایی مانند روابط بین‌الملل، آموزش و سلامت عمومی کاربرد دارد.</li>
+                        </ul>
+
+                        <h3 class="mt-6 text-xl font-bold mb-3 text-indigo-700">چالش‌ها و محدودیت‌ها</h3>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>خطر کلیشه‌سازی:</strong> مقایسه فرهنگ‌ها ممکن است به ساده‌سازی بیش از حد و ایجاد کلیشه‌های فرهنگی منجر شود.</li>
+                            <li><strong>مسائل همبستگی و علیت:</strong> تشخیص اینکه آیا فرهنگ باعث رفتار می‌شود یا برعکس، دشوار است.</li>
+                            <li><strong>نادیده گرفتن عوامل فردی و بیولوژیکی:</strong> این رویکرد ممکن است تفاوت‌های فردی در شخصیت و عوامل ژنتیکی را کم‌اهمیت جلوه دهد.</li>
+                        </ul>
+                        <h3 class="mt-6 text-xl font-bold mb-3 text-green-700">میراث و تأثیر امروزی</h3>
+                        <p>امروزه، درک تأثیرات اجتماعی و فرهنگی یک بخش جدایی‌ناپذیر از روانشناسی است. تقریباً هیچ حوزه تحقیقی یا درمانی مدرنی نمی‌تواند بدون در نظر گرفتن زمینه فرهنگی و اجتماعی فرد، ادعای جامعیت کند. این رویکرد به روانشناسی کمک کرده است تا به یک علم جهانی‌تر و کمتر غرب‌محور تبدیل شود.</p>
+                    `
+                }
+            ]
+        },
+        {
+            title: "جمع‌بندی و رویکرد التقاطی",
+            sections: [
+                {
+                    title: "رویکرد التقاطی در روانشناسی مدرن",
+                    content: `
+                        <h3 class="text-2xl font-bold mb-4 text-indigo-700">جمع‌بندی سفر و نگاه به آینده</h3>
+                        <p class="mb-4">
+                            سفری که از آزمایشگاه وونت در لایپزیگ آغاز شد، ما را از اعماق ناهشیار فروید، به قوانین یادگیری اسکینر، شگفتی‌های ادراک در گشتالت، پیچیدگی‌های پردازش اطلاعات در شناخت‌گرایی، اوج پتانسیل انسان در انسان‌گرایی و در نهایت به پایه‌های بیولوژیکی، تکاملی و اجتماعی-فرهنگی رفتار رساند.
+                        </p>
+                        <p class="mb-4">
+                           هر یک از این مکاتب و رویکردها، مانند یک لنز متفاوت، جنبه‌ای از واقعیت پیچیده انسان را برای ما روشن کردند. هیچ یک به تنهایی کامل نیستند، اما هر کدام بخش مهمی از پازل را در اختیار ما قرار می‌دهند.
+                        </p>
+                        <h3 class="mt-8 text-xl font-bold mb-3 text-indigo-700">رویکرد التقاطی (Eclectic Approach)</h3>
+                        <p class="mb-4">
+                            امروزه کمتر روانشناسی خود را صرفاً یک "رفتارگرا" یا "روانکاو" می‌داند. رویکرد غالب در روانشناسی مدرن، <strong>التقاطی</strong> یا <strong>یکپارچه‌نگر (Integrative)</strong> است. این به آن معناست که محققان و درمانگران، بسته به ماهیت مسئله، از مفاهیم و تکنیک‌های مکاتب مختلف استفاده می‌کنند.
+                        </p>
+                        <p class="mb-4">
+                            به عنوان مثال، برای درمان افسردگی، یک درمانگر ممکن است از:
+                        </p>
+                        <ul class="list-disc pr-6 mt-2 space-y-2">
+                            <li><strong>رویکرد شناختی-رفتاری (CBT)</strong> برای تغییر الگوهای فکری منفی استفاده کند.</li>
+                            <li><strong>رویکرد انسان‌گرا</strong> برای ایجاد یک رابطه درمانی مبتنی بر همدلی و پذیرش بهره ببرد.</li>
+                            <li><strong>رویکرد روان‌پویشی</strong> برای بررسی ریشه مشکلات در تجربیات کودکی کمک بگیرد.</li>
+                            <li><strong>رویکرد زیست‌شناختی</strong> را برای تجویز داروهای ضدافسردگی در نظر بگیرد.</li>
+                        </ul>
+                        <h3 class="mt-8 text-xl font-bold mb-3 text-green-700">سطوح تحلیل (Levels of Analysis)</h3>
+                        <p>یک راه مفید برای درک رویکرد التقاطی، استفاده از <strong>رویکرد زیستی-روانی-اجتماعی (Biopsychosocial Approach)</strong> است. این مدل معتقد است که برای درک کامل هر پدیده روانشناختی، باید سه سطح تحلیل را همزمان در نظر گرفت:</p>
+                        <ul class="list-disc pr-6 mt-2">
+                            <li><strong>عوامل زیستی:</strong> ژنتیک، ساختار مغز، انتقال‌دهنده‌های عصبی.</li>
+                            <li><strong>عوامل روانشناختی:</strong> یادگیری، شناخت، هیجانات، تعارضات ناهشیار.</li>
+                            <li><strong>عوامل اجتماعی-فرهنگی:</strong> تأثیر خانواده، همسالان، فرهنگ و جامعه.</li>
+                        </ul>
+                        <p class="mt-4">در نهایت، آینده روانشناسی در توانایی آن برای یکپارچه‌سازی این سطوح مختلف تحلیل و ارائه یک درک جامع و چندبعدی از انسان نهفته است.</p>
+                    `
+                }
+            ]
+        },
+        {
+            title: "منابع و مطالعه بیشتر",
+            sections: [
+                {
+                    title: "منابع برای مطالعه بیشتر",
+                    content: `
+                        <h3 class="text-2xl font-bold mb-4 text-indigo-700">منابع و کتاب‌ها برای مطالعه بیشتر</h3>
+                        <p class="mb-4">
+                            برای درک عمیق‌تر هر یک از مکاتب و تاریخچه روانشناسی، منابع زیر پیشنهاد می‌شوند. این منابع شامل کتاب‌های کلاسیک و متون دانشگاهی معتبر هستند.
+                        </p>
+                        <h4 class="text-lg font-bold mt-6 mb-2 text-gray-700">کتاب‌های عمومی و تاریخ روانشناسی</h4>
+                        <ul class="list-disc pr-6 mt-2 space-y-2">
+                            <li>Schultz, D. P., & Schultz, S. E. (2015). <i>A History of Modern Psychology.</i> Cengage Learning. (یک منبع دانشگاهی استاندارد و بسیار جامع)</li>
+                            <li>Hergenhahn, B. R. (2009). <i>An Introduction to the History of Psychology.</i> Wadsworth Publishing.</li>
+                            <li>Hock, R. R. (2012). <i>Forty Studies That Changed Psychology.</i> Pearson. (مروری بر تأثیرگذارترین آزمایش‌های روانشناسی)</li>
+                        </ul>
+
+                        <h4 class="text-lg font-bold mt-6 mb-2 text-gray-700">کتاب‌های کلیدی بر اساس مکتب</h4>
+                        <ul class="list-disc pr-6 mt-2 space-y-2">
+                            <li><strong>روانکاوی:</strong> Freud, S. (1900). <i>The Interpretation of Dreams.</i> (کتاب کلاسیک فروید که پایه‌های روانکاوی را بنا نهاد)</li>
+                            <li><strong>رفتارگرایی:</strong> Skinner, B. F. (1953). <i>Science and Human Behavior.</i> (ارائه جامع دیدگاه اسکینر در مورد رفتارگرایی رادیکال)</li>
+                            <li><strong>انسان‌گرایی:</strong> Rogers, C. R. (1961). <i>On Becoming a Person: A Therapist's View of Psychotherapy.</i> (یک معرفی عالی از دیدگاه راجرز)</li>
+                             <li><strong>انسان‌گرایی:</strong> Maslow, A. H. (1954). <i>Motivation and Personality.</i> (جایی که مزلو نظریه سلسله مراتب نیازها را به تفصیل شرح می‌دهد)</li>
+                            <li><strong>تکاملی:</strong> Pinker, S. (1997). <i>How the Mind Works.</i> (یک کتاب جذاب و خواندنی برای مخاطب عام در مورد روانشناسی تکاملی)</li>
+                        </ul>
+
+                        <h4 class="text-lg font-bold mt-6 mb-2 text-gray-700">منابع آنلاین معتبر</h4>
+                        <ul class="list-disc pr-6 mt-2 space-y-2">
+                            <li><a href="https://www.apa.org" target="_blank" class="text-blue-600 hover:underline">American Psychological Association (APA)</a></li>
+                            <li><a href="https://www.simplypsychology.org" target="_blank" class="text-blue-600 hover:underline">Simply Psychology</a> (منبعی عالی با توضیحات ساده و قابل فهم)</li>
+                            <li><a href="https://plato.stanford.edu/archives/fall2020/entries/behaviorism/" target="_blank" class="text-blue-600 hover:underline">Stanford Encyclopedia of Philosophy</a> (برای مقالات عمیق و فلسفی در مورد مکاتب مختلف)</li>
+                        </ul>
+                    `
+                }
+            ]
+        }
+    ];
+    
+    let currentSchoolIndex = 0;
+    let currentSectionIndex = 0;
+    let presentationStarted = false;
+
+    function startPresentation() {
+        document.getElementById('cover-slide').classList.remove('active-slide');
+        document.getElementById('main-presentation-slide').classList.add('active-slide');
+        presentationStarted = true;
+        loadSchoolNavigation();
+        loadSchool(0);
+    }
+
+    function loadSchoolNavigation() {
+        const schoolNavContainer = document.getElementById('school-navigation');
+        schoolNavContainer.innerHTML = '';
+        schools.forEach((school, index) => {
+            const button = document.createElement('button');
+            button.textContent = school.title;
+            button.className = 'w-full text-right px-4 py-2 rounded-lg school-nav';
+            button.onclick = () => loadSchool(index);
+            schoolNavContainer.appendChild(button);
+        });
+    }
+
+    function loadSchool(schoolIndex) {
+        currentSchoolIndex = schoolIndex;
+        currentSectionIndex = 0;
+        
+        const school = schools[currentSchoolIndex];
+        
+        // Update header
+        document.getElementById('header-title').textContent = school.title;
+        
+        // Update sidebar active state
+        const schoolNavButtons = document.querySelectorAll('.school-nav');
+        schoolNavButtons.forEach((btn, index) => {
+            if (index === currentSchoolIndex) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+
+        // Load content
+        loadContent();
+    }
+    
+    function loadContent() {
+        const school = schools[currentSchoolIndex];
+        const section = school.sections[currentSectionIndex];
+        
+        // Load School Title
+        const schoolTitleContainer = document.getElementById('school-title-container');
+        schoolTitleContainer.innerHTML = `<h2 class="text-3xl font-bold text-gray-800">${school.title}</h2>`;
+
+        // Load Section Navigation
+        const sectionNavContainer = document.getElementById('section-navigation');
+        sectionNavContainer.innerHTML = '';
+        school.sections.forEach((sec, index) => {
+            const button = document.createElement('button');
+            button.textContent = sec.title;
+            button.className = `px-3 py-1 rounded-full text-sm font-medium section-nav ${index === currentSectionIndex ? 'active' : 'bg-gray-100'}`;
+            button.onclick = () => {
+                currentSectionIndex = index;
+                loadContent();
+            };
+            sectionNavContainer.appendChild(button);
+        });
+
+        // Load section content
+        const contentContainer = document.getElementById('school-content');
+        contentContainer.innerHTML = section.content;
+
+        // Scroll content area to top
+        document.getElementById('content-area').scrollTop = 0;
+
+        updateProgressBar();
+        updateNavigationButtons();
+    }
+
+
+    function updateProgressBar() {
+        const progress = document.getElementById('progress');
+        const totalSchools = schools.length;
+        
+        const percentage = ((currentSchoolIndex + 1) / totalSchools) * 100;
+        progress.style.width = `${percentage}%`;
+    }
+
+    function navigate(direction) {
+        const school = schools[currentSchoolIndex];
+        
+        if (direction === 1) { // Next
+            if (currentSectionIndex < school.sections.length - 1) {
+                currentSectionIndex++;
+            } else if (currentSchoolIndex < schools.length - 1) {
+                currentSchoolIndex++;
+                currentSectionIndex = 0;
+            }
+        } else if (direction === -1) { // Previous
+            if (currentSectionIndex > 0) {
+                currentSectionIndex--;
+            } else if (currentSchoolIndex > 0) {
+                currentSchoolIndex--;
+                currentSectionIndex = schools[currentSchoolIndex].sections.length - 1;
+            }
+        }
+        loadSchool(currentSchoolIndex);
+    }
+    
+    function updateNavigationButtons() {
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        
+        const isFirst = currentSchoolIndex === 0 && currentSectionIndex === 0;
+        const isLast = currentSchoolIndex === schools.length - 1 && currentSectionIndex === schools[currentSchoolIndex].sections.length - 1;
+
+        prevBtn.disabled = isFirst;
+        nextBtn.disabled = isLast;
+        
+        prevBtn.classList.toggle('opacity-50', isFirst);
+        prevBtn.classList.toggle('cursor-not-allowed', isFirst);
+        nextBtn.classList.toggle('opacity-50', isLast);
+        nextBtn.classList.toggle('cursor-not-allowed', isLast);
+    }
+
+    // Initial load
+    window.onload = () => {
+        if (presentationStarted) {
+            loadSchoolNavigation();
+            loadSchool(0);
+        }
+    };
+
+</script>
+</body>
+</html>
